@@ -19,11 +19,11 @@ import {
 const BACKEND_URL = "http://127.0.0.1:5000";
 
 const SAMPLE_PROMPTS = [
+  "🧮 45 * 12 எவ்வளவு?",
+  "💻 Python string reverse program",
   "🌱 ஒளிச்சேர்க்கை என்றால் என்ன?",
-  "🪐 புவியீர்ப்பு விசை எப்படி செயல்படுகிறது?",
-  "✨ நட்சத்திரங்கள் ஏன் மினுமினுக்கின்றன?",
-  "🌊 நீர் சுழற்சி என்றால் என்ன?",
-  "🎬 What is the meaning of Interstellar?"
+  "🎬 Interstellar படத்தின் அர்த்தம் என்ன?",
+  "🪐 Earth yen suthuthu? (Tanglish)"
 ];
 
 const LANGUAGES = [
@@ -33,7 +33,8 @@ const LANGUAGES = [
   { code: "Malayalam", name: "Malayalam (മലയാളം)", speech: "ml-IN" },
   { code: "Kannada", name: "Kannada (ಕನ್ನಡ)", speech: "kn-IN" },
   { code: "Bengali", name: "Bengali (বাংলা)", speech: "bn-IN" },
-  { code: "Marathi", name: "Marathi (मराठी)", speech: "mr-IN" }
+  { code: "Marathi", name: "Marathi (मराठी)", speech: "mr-IN" },
+  { code: "English", name: "English", speech: "en-US" }
 ];
 
 export default function App() {
@@ -45,12 +46,15 @@ export default function App() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: "வணக்கம்! நான் உங்கள் Vernacular AI கல்வி ஆசிரியர் (AI Tutor). அறிவியல், கணிதம், அல்லது சினிமா வசனங்கள் பற்றி என்னிடம் கேளுங்கள் — உங்கள் தாய்மொழியில் எளிய உதாரணங்களோடு விளக்குகிறேன்!",
+      text: "வணக்கம்! நான் உங்கள் Luthar AI (லூதர் AI) — Universal Multilingual Intelligence & AI Tutor. கணிதம் (Math), நிரலாக்கம் (Coding), அறிவியல் (Science), அல்லது சினிமா சந்தேகங்கள் எதுவானாலும் எந்த மொழியிலும் என்னிடம் கேளுங்கள்!",
       suggestions: [
+        "🧮 45 * 12 எவ்வளவு?",
+        "💻 Python string reverse program",
         "🌱 ஒளிச்சேர்க்கை என்றால் என்ன?",
-        "🪐 புவியீர்ப்பு விசை எப்படி செயல்படுகிறது?",
-        "✨ நட்சத்திரங்கள் ஏன் மினுமினுக்கின்றன?"
+        "🎬 Interstellar படத்தின் அர்த்தம் என்ன?"
       ],
+      mode: "TUTOR",
+      lang: "Tamil",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -103,6 +107,8 @@ export default function App() {
         role: "assistant",
         text: data.reply,
         suggestions: data.suggestions || [],
+        lang: data.language || data.detected_language || targetLang,
+        mode: (data.mode || "tutor").toUpperCase(),
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
 
@@ -275,19 +281,22 @@ export default function App() {
         {activeTab === "chat" && (
           <div style={{ display: "flex", flexDirection: "column", background: "#fff", border: "1px solid #e2e8f0", borderRadius: "20px", boxShadow: "0 10px 30px rgba(0,0,0,0.06)", overflow: "hidden", minHeight: "560px" }}>
             {/* Chat Header */}
-            <div style={{ padding: "16px 22px", background: "linear-gradient(135deg, #5b5bea 0%, #8b5cf6 100%)", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(255,255,255,0.2)", display: "grid", placeItems: "center" }}>
-                  <Sparkles size={20} />
+            <div style={{ padding: "16px 22px", background: "linear-gradient(135deg, #1e1b4b 0%, #311042 50%, #0f172a 100%)", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ width: "38px", height: "38px", borderRadius: "12px", background: "linear-gradient(135deg, #06b6d4, #6366f1)", display: "grid", placeItems: "center", boxShadow: "0 0 12px rgba(6,182,212,0.5)" }}>
+                  <Sparkles size={20} color="#fff" />
                 </div>
                 <div>
-                  <strong style={{ fontSize: "15px", display: "block" }}>Vernacular AI Educational Tutor</strong>
-                  <span style={{ fontSize: "12px", opacity: 0.9 }}>Interactive Mother Tongue Doubt Clearing Assistant</span>
+                  <strong style={{ fontSize: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span>⚡ LUTHAR AI</span>
+                    <span style={{ fontSize: "12px", background: "rgba(244,63,94,0.2)", color: "#fda4af", padding: "1px 8px", borderRadius: "6px" }}>லூதர் AI</span>
+                  </strong>
+                  <span style={{ fontSize: "11px", color: "#94a3b8" }}>Universal Multilingual Intelligence Core • 51 Languages • Math • Code</span>
                 </div>
               </div>
               <button
                 onClick={() => setMessages([messages[0]])}
-                style={{ background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", padding: "6px 12px", borderRadius: "8px", fontSize: "12px", cursor: "pointer", fontWeight: 600 }}
+                style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#fff", padding: "6px 12px", borderRadius: "8px", fontSize: "12px", cursor: "pointer", fontWeight: 600 }}
               >
                 Clear Chat
               </button>
@@ -295,7 +304,7 @@ export default function App() {
 
             {/* Quick Topic Chips */}
             <div style={{ padding: "12px 20px", background: "#f8fafc", borderBottom: "1px solid #f1f5f9", display: "flex", gap: "8px", overflowX: "auto" }}>
-              <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", alignSelf: "center", textTransform: "uppercase" }}>Try:</span>
+              <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", alignSelf: "center", textTransform: "uppercase" }}>Try Luthar AI:</span>
               {SAMPLE_PROMPTS.map((p, i) => (
                 <button
                   key={i}
@@ -320,15 +329,24 @@ export default function App() {
                     alignItems: m.role === "user" ? "flex-end" : "flex-start"
                   }}
                 >
+                  {/* Meta tag */}
+                  {m.role === "assistant" && (
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", fontSize: "11px" }}>
+                      <strong style={{ color: "#4f46e5" }}>⚡ LUTHAR AI</strong>
+                      {m.lang && <span style={{ background: "#e0e7ff", color: "#4338ca", padding: "1px 6px", borderRadius: "4px", fontWeight: 700 }}>{m.lang}</span>}
+                      {m.mode && <span style={{ background: "#fce7f3", color: "#be185d", padding: "1px 6px", borderRadius: "4px", fontWeight: 700 }}>{m.mode}</span>}
+                    </div>
+                  )}
+
                   <div
                     style={{
-                      background: m.role === "user" ? "#5b5bea" : "#fff",
+                      background: m.role === "user" ? "linear-gradient(135deg, #4f46e5, #7c3aed)" : "#fff",
                       color: m.role === "user" ? "#fff" : "#1e293b",
                       padding: "14px 18px",
                       borderRadius: m.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
                       boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
                       border: m.role === "assistant" ? "1px solid #e2e8f0" : "none",
-                      fontSize: "15px",
+                      fontSize: "14.5px",
                       lineHeight: "1.7",
                       whiteSpace: "pre-line"
                     }}

@@ -238,8 +238,9 @@ def chat():
         data = request.get_json(silent=True) or {}
         message = str(data.get("message", "")).strip()
         history = data.get("history", [])
-        language = data.get("language") or data.get("target") or "Tamil"
-        result = generate_chat_response(message, history=history, target_language=language)
+        lang_input = data.get("language") or data.get("target")
+        target_language = None if (not lang_input or str(lang_input).lower() == "auto") else lang_input
+        result = generate_chat_response(message, history=history, target_language=target_language)
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

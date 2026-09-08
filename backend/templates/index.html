@@ -1403,109 +1403,429 @@
         }
       }
 
-      /* Floating AI Tutor Chatbot Widget */
-      .chat-float-btn {
+      /* ==========================================
+         LUTHAR AI (லூதர் AI) - FUTURISTIC CYBER UI/UX
+         ========================================== */
+      @keyframes lutharOrbSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes lutharPulseGlow {
+        0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 0 45px rgba(6, 182, 212, 0.4); }
+        50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.8), 0 0 65px rgba(244, 63, 94, 0.5); }
+      }
+      @keyframes waveBarBounce {
+        0%, 100% { height: 4px; }
+        50% { height: 16px; }
+      }
+
+      /* Animated Neural Orb Floating Launcher */
+      .luthar-float-btn {
         position: fixed;
         bottom: 24px;
         right: 24px;
-        background: var(--primary-gradient);
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
         color: #ffffff;
-        border: none;
-        border-radius: 30px;
-        padding: 12px 20px;
+        border: 2px solid rgba(129, 140, 248, 0.5);
+        border-radius: 40px;
+        padding: 8px 18px 8px 10px;
         display: flex;
         align-items: center;
-        gap: 8px;
-        font-weight: 700;
-        font-size: 14px;
+        gap: 12px;
         cursor: pointer;
-        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-        z-index: 120;
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 150;
+        animation: lutharPulseGlow 3s infinite ease-in-out;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(16px);
       }
 
-      .chat-float-btn:hover {
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 14px 30px rgba(99, 102, 241, 0.5);
+      .luthar-float-btn:hover {
+        transform: translateY(-4px) scale(1.04);
+        border-color: #38bdf8;
       }
 
-      .chat-widget-box {
+      .luthar-orb-avatar {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: radial-gradient(circle, #6366f1 0%, #4338ca 100%);
+      }
+
+      .luthar-orb-ring {
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px dashed rgba(56, 189, 248, 0.8);
+        animation: lutharOrbSpin 6s linear infinite;
+      }
+
+      .luthar-btn-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .luthar-btn-title {
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+        background: linear-gradient(90deg, #38bdf8, #a855f7, #f43f5e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .luthar-btn-sub {
+        font-size: 11px;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .luthar-online-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 8px #10b981;
+      }
+
+      /* Luthar AI Futuristic Cockpit Box */
+      .luthar-chat-box {
         position: fixed;
-        bottom: 82px;
+        bottom: 86px;
         right: 24px;
-        width: clamp(320px, 90vw, 410px);
-        height: 560px;
-        background: var(--card-bg);
-        border: 1px solid var(--surface-border);
-        border-radius: 20px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-        z-index: 130;
+        width: clamp(340px, 92vw, 460px);
+        height: 640px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(129, 140, 248, 0.3);
+        border-radius: 24px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.2);
+        z-index: 160;
         display: none;
         flex-direction: column;
         overflow: hidden;
-        animation: chatSlideUp 0.25s ease-out forwards;
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        color: #f8fafc;
+        animation: chatSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        transition: all 0.3s ease;
       }
 
-      .chat-widget-box.open {
+      .luthar-chat-box.open {
         display: flex;
       }
 
-      @keyframes chatSlideUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to { opacity: 1; transform: translateY(0); }
+      /* Fullscreen Expanded Cockpit Mode */
+      .luthar-chat-box.fullscreen {
+        width: 95vw !important;
+        height: 92vh !important;
+        top: 4vh;
+        right: 2.5vw;
+        bottom: auto;
+        border-radius: 24px;
+        box-shadow: 0 0 100px rgba(99, 102, 241, 0.4);
       }
 
-      .chat-widget-header {
-        background: var(--primary-gradient);
-        color: #fff;
+      /* Cockpit Header */
+      .luthar-header {
+        background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border-bottom: 1px solid rgba(129, 140, 248, 0.2);
         padding: 14px 18px;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
 
-      .chat-widget-messages {
+      .luthar-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .luthar-core-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #06b6d4, #6366f1);
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+      }
+
+      .luthar-header-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: 0.5px;
+      }
+
+      .luthar-header-tag {
+        font-size: 11px;
+        color: #38bdf8;
+        font-weight: 600;
+      }
+
+      .luthar-header-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .luthar-ctrl-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #cbd5e1;
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .luthar-ctrl-btn:hover {
+        background: rgba(99, 102, 241, 0.3);
+        color: #fff;
+      }
+
+      .luthar-ctrl-btn.active {
+        background: rgba(16, 185, 129, 0.25);
+        color: #34d399;
+        border-color: #059669;
+      }
+
+      /* Mode Switcher Bar */
+      .luthar-modes-bar {
+        background: rgba(15, 23, 42, 0.7);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 8px 14px;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+      }
+
+      .luthar-mode-pill {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .luthar-mode-pill:hover, .luthar-mode-pill.active {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.35));
+        border-color: #818cf8;
+        color: #ffffff;
+      }
+
+      /* Language Beacon Bar */
+      .luthar-beacon-bar {
+        padding: 6px 16px;
+        background: rgba(99, 102, 241, 0.08);
+        border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #a5b4fc;
+      }
+
+      /* Messages Stream */
+      .luthar-messages-container {
         flex: 1;
-        padding: 16px;
+        padding: 18px;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        background: var(--bg);
+        gap: 16px;
+        background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.06) 0%, transparent 60%), #0b0f19;
       }
 
-      .chat-bubble {
-        max-width: 85%;
-        padding: 10px 14px;
-        border-radius: 14px;
-        font-size: 14px;
-        line-height: 1.6;
+      .luthar-bubble {
+        max-width: 88%;
+        padding: 12px 16px;
+        border-radius: 16px;
+        font-size: 13.5px;
+        line-height: 1.65;
         white-space: pre-line;
+        word-break: break-word;
       }
 
-      .chat-bubble.user {
+      .luthar-bubble.user {
         align-self: flex-end;
-        background: var(--primary);
-        color: #fff;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        color: #ffffff;
         border-bottom-right-radius: 4px;
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
       }
 
-      .chat-bubble.assistant {
+      .luthar-bubble.assistant {
         align-self: flex-start;
-        background: var(--surface);
-        color: var(--text-main);
-        border: 1px solid var(--surface-border);
+        background: rgba(30, 41, 59, 0.7);
+        color: #f1f5f9;
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-left: 3px solid #6366f1;
         border-bottom-left-radius: 4px;
-        box-shadow: var(--shadow-sm);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       }
 
-      .chat-widget-footer {
-        padding: 12px 14px;
-        border-top: 1px solid var(--surface-border);
-        background: var(--card-bg);
+      .luthar-bubble-meta {
         display: flex;
         align-items: center;
         gap: 8px;
+        margin-bottom: 6px;
+        font-size: 11px;
+        color: #94a3b8;
+      }
+
+      .luthar-lang-badge {
+        background: rgba(56, 189, 248, 0.15);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 6px;
+        padding: 2px 6px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .luthar-mode-badge {
+        background: rgba(168, 85, 247, 0.15);
+        color: #c084fc;
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        border-radius: 6px;
+        padding: 2px 6px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      /* Code Block in Bubble */
+      .luthar-code-block {
+        margin: 10px 0;
+        background: #020617;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .luthar-code-header {
+        background: #0f172a;
+        padding: 6px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #1e293b;
+        font-size: 11px;
+        font-family: monospace;
+        color: #94a3b8;
+      }
+
+      .luthar-copy-btn {
+        background: transparent;
+        border: 1px solid #475569;
+        color: #cbd5e1;
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-size: 10px;
+        cursor: pointer;
+      }
+
+      .luthar-copy-btn:hover {
+        background: #334155;
+        color: #fff;
+      }
+
+      .luthar-code-content {
+        padding: 12px;
+        font-family: 'Fira Code', 'Courier New', monospace;
+        font-size: 12px;
+        overflow-x: auto;
+        color: #38bdf8;
+        white-space: pre;
+      }
+
+      /* Animated Equalizer Waveform */
+      .luthar-waveform-player {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 18px;
+      }
+
+      .waveform-bar {
+        width: 3px;
+        background: #38bdf8;
+        border-radius: 2px;
+        height: 4px;
+        animation: waveBarBounce 1s infinite ease-in-out;
+      }
+
+      .waveform-bar:nth-child(2) { animation-delay: 0.15s; background: #818cf8; }
+      .waveform-bar:nth-child(3) { animation-delay: 0.3s; background: #c084fc; }
+      .waveform-bar:nth-child(4) { animation-delay: 0.45s; background: #f43f5e; }
+      .waveform-bar:nth-child(5) { animation-delay: 0.6s; background: #34d399; }
+
+      /* Input Footer */
+      .luthar-footer {
+        padding: 12px 16px;
+        background: rgba(15, 23, 42, 0.98);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .luthar-input-field {
+        flex: 1;
+        padding: 10px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        background: rgba(2, 6, 23, 0.7);
+        color: #f8fafc;
+        font-size: 13px;
+        outline: none;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .luthar-input-field:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+      }
+
+      .luthar-send-btn {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        transition: transform 0.2s ease;
+      }
+
+      .luthar-send-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(99, 102, 241, 0.6);
       }
     </style>
   </head>
@@ -2352,62 +2672,130 @@
       </div>
     </aside>
 
-    <!-- Floating AI Tutor Chatbot Trigger Button -->
-    <button id="chatFloatBtn" class="chat-float-btn" onclick="toggleChatWidget()" title="Chat with Vernacular AI Tutor">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-      <span>💬 AI Tutor</span>
+    <!-- ==========================================
+         LUTHAR AI (லூதர் AI) - FUTURISTIC LAUNCHER & COCKPIT
+         ========================================== -->
+    <!-- 1. Floating Animated Neural Orb Button -->
+    <button id="lutharFloatBtn" class="luthar-float-btn" onclick="toggleLutharChat()" title="Open Luthar AI (லூதர் AI) Universal Multilingual Intelligence">
+      <div class="luthar-orb-avatar">
+        <div class="luthar-orb-ring"></div>
+        <span style="font-size: 18px;">⚡</span>
+      </div>
+      <div class="luthar-btn-meta">
+        <div class="luthar-btn-title">
+          <span>LUTHAR AI</span>
+          <span style="font-size: 11px; font-weight: 700; color: #f43f5e; background: rgba(244, 63, 94, 0.15); padding: 1px 6px; border-radius: 6px;">லூதர் AI</span>
+        </div>
+        <div class="luthar-btn-sub">
+          <span class="luthar-online-dot"></span>
+          <span>51 Langs • Math • Code • STEM</span>
+        </div>
+      </div>
     </button>
 
-    <!-- Floating Chatbot Widget Box -->
-    <div id="chatWidgetBox" class="chat-widget-box">
-      <!-- Widget Header -->
-      <div class="chat-widget-header">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; font-size: 18px;">
-            🤖
+    <!-- 2. Futuristic Luthar AI Glassmorphic Cockpit Box -->
+    <div id="lutharChatBox" class="luthar-chat-box">
+      <!-- Cockpit Header -->
+      <div class="luthar-header">
+        <div class="luthar-header-left">
+          <div class="luthar-core-avatar">
+            <span>⚡</span>
           </div>
           <div>
-            <div style="font-weight: 800; font-size: 14px;">Vernacular AI Tutor</div>
-            <div style="font-size: 11px; opacity: 0.85;">Mother-Tongue Doubt Assistant</div>
+            <div class="luthar-header-title">LUTHAR AI <span style="font-size: 12px; font-weight: 500; color: #a5b4fc;">(லூதர் AI)</span></div>
+            <div class="luthar-header-tag">Universal Multilingual Intelligence</div>
           </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <select id="chatWidgetLang" class="custom-select" style="padding: 4px 8px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.18); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;">
-            <option value="Tamil" selected>Tamil (தமிழ்)</option>
-            <option value="Hindi">Hindi (हिन्दी)</option>
-            <option value="Telugu">Telugu (తెలుగు)</option>
-            <option value="Malayalam">Malayalam (മലയാളം)</option>
-            <option value="Kannada">Kannada (ಕನ್ನಡ)</option>
+        <div class="luthar-header-controls">
+          <select id="lutharLangSelect" class="custom-select" style="padding: 4px 8px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;" onchange="updateLutharLanguageBeacon()">
+            <option value="auto" selected>✨ Auto-Detect (தன்னியக்க மொழி)</option>
+            <option value="Tamil">🇮🇳 Tamil (தமிழ்)</option>
+            <option value="Hindi">🇮🇳 Hindi (हिन्दी)</option>
+            <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+            <option value="Malayalam">🇮🇳 Malayalam (മലയാളം)</option>
+            <option value="Kannada">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+            <option value="Bengali">🇮🇳 Bengali (বাংলা)</option>
+            <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+            <option value="English">🇬🇧 English</option>
+            <option value="French">🇫🇷 French (Français)</option>
+            <option value="German">🇩🇪 German (Deutsch)</option>
+            <option value="Spanish">🇪🇸 Spanish (Español)</option>
+            <option value="Arabic">🇸🇦 Arabic (العربية)</option>
+            <option value="Russian">🇷🇺 Russian (Русский)</option>
+            <option value="Japanese">🇯🇵 Japanese (日本語)</option>
           </select>
-          <button class="icon-btn" style="background: transparent; color: #fff; border: none; padding: 4px;" onclick="toggleChatWidget()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+
+          <button id="lutharTtsToggleBtn" class="luthar-ctrl-btn active" onclick="toggleLutharTts()" title="Toggle Auto Speech Voice">
+            <span id="lutharTtsIcon">🔊</span>
+          </button>
+
+          <button class="luthar-ctrl-btn" onclick="toggleLutharFullscreen()" title="Toggle Fullscreen Cockpit Mode">
+            <span id="lutharExpandIcon">⛶</span>
+          </button>
+
+          <button class="luthar-ctrl-btn" onclick="clearLutharChat()" title="Clear Conversation">
+            <span>🗑️</span>
+          </button>
+
+          <button class="luthar-ctrl-btn" onclick="toggleLutharChat()" title="Close Luthar AI">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
       </div>
 
-      <!-- Suggestion chips row -->
-      <div style="padding: 8px 12px; background: var(--surface); border-bottom: 1px solid var(--surface-border); display: flex; gap: 6px; overflow-x: auto;">
-        <button class="prompt-chip" style="font-size: 11px; padding: 4px 8px;" onclick="sendWidgetQuickChat('What is photosynthesis?')">🌱 Photosynthesis</button>
-        <button class="prompt-chip" style="font-size: 11px; padding: 4px 8px;" onclick="sendWidgetQuickChat('How does gravity work?')">🪐 Gravity</button>
-        <button class="prompt-chip" style="font-size: 11px; padding: 4px 8px;" onclick="sendWidgetQuickChat('Why do stars twinkle?')">✨ Stars</button>
+      <!-- Quick Capability Modes -->
+      <div class="luthar-modes-bar">
+        <button class="luthar-mode-pill active" id="mode_tutor" onclick="setLutharMode('tutor')">🎓 Universal Tutor</button>
+        <button class="luthar-mode-pill" id="mode_math" onclick="setLutharMode('math')">🧮 Math & Calculations</button>
+        <button class="luthar-mode-pill" id="mode_code" onclick="setLutharMode('code')">💻 Code & Programming</button>
+        <button class="luthar-mode-pill" id="mode_cinema" onclick="setLutharMode('cinema')">🎬 Cinema & Stories</button>
+        <button class="luthar-mode-pill" id="mode_polyglot" onclick="setLutharMode('polyglot')">🌐 51-Lang Matrix</button>
       </div>
 
-      <!-- Messages Stream -->
-      <div id="chatWidgetMessages" class="chat-widget-messages">
-        <div class="chat-bubble assistant">
-          வணக்கம்! நான் உங்கள் AI ஆசிரியர். உங்களுக்கு இருக்கும் சந்தேகங்களை என்னிடம் கேளுங்கள் — உங்கள் தாய்மொழியில் எளிய உதாரணங்களுடன் விளக்குகிறேன்!
+      <!-- Status Beacon Ribbon -->
+      <div class="luthar-beacon-bar">
+        <div>
+          <span>🧠 Core: <strong>Active</strong></span>
+          <span style="margin: 0 6px;">•</span>
+          <span id="lutharActiveModeLabel">Mode: <strong>Universal Tutor</strong></span>
+        </div>
+        <div id="lutharActiveLangLabel">
+          🌍 Language: <strong>Auto-Detect (51 Langs)</strong>
         </div>
       </div>
 
-      <!-- Widget Input Footer -->
-      <div class="chat-widget-footer">
-        <button id="chatWidgetMicBtn" class="icon-btn" onclick="toggleWidgetMic()" title="Voice Microphone Input">
+      <!-- Contextual Suggestion Prompt Chips -->
+      <div id="lutharPromptChipsRow" style="padding: 8px 14px; background: rgba(15, 23, 42, 0.85); border-bottom: 1px solid rgba(255, 255, 255, 0.06); display: flex; gap: 8px; overflow-x: auto;">
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 10px; background: rgba(99,102,241,0.15); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.3);" onclick="sendLutharQuickChat('45 * 12 எவ்வளவு?')">🧮 45 * 12</button>
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 10px; background: rgba(56,189,248,0.15); color: #bae6fd; border: 1px solid rgba(56,189,248,0.3);" onclick="sendLutharQuickChat('Python string reverse program')">💻 Python Reverse String</button>
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 10px; background: rgba(16,185,129,0.15); color: #a7f3d0; border: 1px solid rgba(16,185,129,0.3);" onclick="sendLutharQuickChat('ஒளிச்சேர்க்கை என்றால் என்ன?')">🌱 Photosynthesis</button>
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 10px; background: rgba(244,63,94,0.15); color: #fecdd3; border: 1px solid rgba(244,63,94,0.3);" onclick="sendLutharQuickChat('Interstellar படத்தின் அர்த்தம் என்ன?')">🎬 Interstellar Plot</button>
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 10px; background: rgba(217,70,239,0.15); color: #f5d0fe; border: 1px solid rgba(217,70,239,0.3);" onclick="sendLutharQuickChat('Earth yen suthuthu?')">🪐 Earth Rotation (Tanglish)</button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="lutharMessagesContainer" class="luthar-messages-container">
+        <div class="luthar-bubble assistant">
+          <div class="luthar-bubble-meta">
+            <span style="font-weight: 800; color: #fff;">⚡ LUTHAR AI</span>
+            <span class="luthar-lang-badge">தமிழ் Tamil</span>
+            <span class="luthar-mode-badge">Core Online</span>
+          </div>
+          வணக்கம்! நான் **Luthar AI (லூதர் AI)**. 
+          கணிதக் கணக்கீடுகள், நிரலாக்க குறியீடுகள் (Coding), அறிவியல் & பாட சந்தேகங்கள், அல்லது சினிமா தாத்பரியங்கள் என எதை வேண்டுமானாலும் எந்த மொழியிலும் என்னிடம் கேளுங்கள்!
+        </div>
+      </div>
+
+      <!-- Footer & Input Bar -->
+      <div class="luthar-footer">
+        <button id="lutharMicBtn" class="icon-btn" onclick="toggleLutharMic()" title="Voice Input (Speech-to-Text)">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
         </button>
-        <input type="text" id="chatWidgetInput" placeholder="Ask doubt in English, Tamil or Tanglish..." onkeydown="if(event.key==='Enter') sendWidgetMessage()" style="flex: 1; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--surface-border); background: var(--bg); color: var(--text-main); font-size: 13px; outline: none;" />
-        <button class="btn-primary" style="padding: 8px 14px; font-size: 13px; border-radius: 10px;" onclick="sendWidgetMessage()">
+        <input type="text" id="lutharInput" class="luthar-input-field" placeholder="Ask Luthar AI: math, coding, science, cinema, in any language..." onkeydown="if(event.key==='Enter') sendLutharMessage()" />
+        <button class="luthar-send-btn" onclick="sendLutharMessage()" title="Send Message">
           <span>Send</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
     </div>
@@ -3835,121 +4223,353 @@
       }
 
       // ==========================================
-      // FLOATING AI TUTOR CHATBOT WIDGET
+      // LUTHAR AI (லூதர் AI) - INTERACTIVE CLIENT ENGINE
       // ==========================================
-      let isChatWidgetOpen = false;
-      let isWidgetListening = false;
+      let isLutharOpen = false;
+      let isLutharFullscreen = false;
+      let isLutharTtsEnabled = true;
+      let currentLutharMode = "tutor";
+      let isLutharMicListening = false;
+      let lutharCurrentWaveId = null;
 
-      function toggleChatWidget() {
-        const box = document.getElementById("chatWidgetBox");
+      function toggleLutharChat() {
+        const box = document.getElementById("lutharChatBox");
         if (!box) return;
-        isChatWidgetOpen = !isChatWidgetOpen;
-        if (isChatWidgetOpen) {
+        isLutharOpen = !isLutharOpen;
+        if (isLutharOpen) {
           box.classList.add("open");
-          document.getElementById("chatWidgetInput")?.focus();
+          document.getElementById("lutharInput")?.focus();
         } else {
           box.classList.remove("open");
         }
       }
 
-      function sendWidgetQuickChat(text) {
-        const input = document.getElementById("chatWidgetInput");
-        if (input) input.value = text;
-        sendWidgetMessage();
+      function toggleLutharFullscreen() {
+        const box = document.getElementById("lutharChatBox");
+        const icon = document.getElementById("lutharExpandIcon");
+        if (!box) return;
+        isLutharFullscreen = !isLutharFullscreen;
+        if (isLutharFullscreen) {
+          box.classList.add("fullscreen");
+          if (icon) icon.textContent = "❐";
+        } else {
+          box.classList.remove("fullscreen");
+          if (icon) icon.textContent = "⛶";
+        }
       }
 
-      async function sendWidgetMessage() {
-        const input = document.getElementById("chatWidgetInput");
-        const msgContainer = document.getElementById("chatWidgetMessages");
-        const langSelect = document.getElementById("chatWidgetLang");
-        const lang = langSelect ? langSelect.value : "Tamil";
+      function toggleLutharTts() {
+        const btn = document.getElementById("lutharTtsToggleBtn");
+        const icon = document.getElementById("lutharTtsIcon");
+        isLutharTtsEnabled = !isLutharTtsEnabled;
+        if (isLutharTtsEnabled) {
+          btn?.classList.add("active");
+          if (icon) icon.textContent = "🔊";
+          showToast("Luthar AI Voice Narration: ON");
+        } else {
+          btn?.classList.remove("active");
+          if (icon) icon.textContent = "🔇";
+          if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+          showToast("Luthar AI Voice Narration: OFF");
+        }
+      }
+
+      function updateLutharLanguageBeacon() {
+        const langSelect = document.getElementById("lutharLangSelect");
+        const langLabel = document.getElementById("lutharActiveLangLabel");
+        if (!langSelect || !langLabel) return;
+        const val = langSelect.value;
+        if (val === "auto") {
+          langLabel.innerHTML = `🌍 Language: <strong>Auto-Detect (51 Langs)</strong>`;
+        } else {
+          langLabel.innerHTML = `🌍 Language: <strong>${val}</strong>`;
+        }
+      }
+
+      const MODE_PROMPTS = {
+        tutor: [
+          { text: "ஒளிச்சேர்க்கை என்றால் என்ன?", label: "🌱 Photosynthesis" },
+          { text: "புவியீர்ப்பு விசை எப்படி செயல்படுகிறது?", label: "🪐 Gravity" },
+          { text: "நட்சத்திரங்கள் ஏன் ஒளிர்கின்றன?", label: "✨ Stars" },
+          { text: "பொருளின் 4-வது நிலை எது?", label: "⚡ Matter & Plasma" }
+        ],
+        math: [
+          { text: "45 * 12 எவ்வளவு?", label: "🧮 45 * 12" },
+          { text: "square root of 625", label: "📐 √625" },
+          { text: "25% of 800", label: "📊 25% of 800" },
+          { text: "area of circle with radius 14", label: "⭕ Circle Area (r=14)" },
+          { text: "solve 2x + 10 = 30", label: "⚖️ 2x + 10 = 30" }
+        ],
+        code: [
+          { text: "Python string reverse program", label: "🐍 Python Reverse String" },
+          { text: "Python Fibonacci series code", label: "🔢 Python Fibonacci" },
+          { text: "JavaScript array filter example", label: "⚡ JS Array Filter" },
+          { text: "SQL find duplicate records", label: "🗄️ SQL Duplicates" },
+          { text: "CSS glassmorphic card design", label: "🎨 CSS Glassmorphism" }
+        ],
+        cinema: [
+          { text: "Interstellar படத்தின் அர்த்தம் என்ன?", label: "🪐 Interstellar Meaning" },
+          { text: "The Pursuit of Happyness message", label: "🏀 Pursuit of Happyness" },
+          { text: "Oppenheimer destroyer of worlds meaning", label: "⚛️ Oppenheimer Speech" },
+          { text: "BBC Planet Earth miracle web", label: "🌿 Planet Earth" }
+        ],
+        polyglot: [
+          { text: "Earth yen suthuthu?", label: "🇮🇳 Tanglish Query" },
+          { text: "photosynthesis kya hota hai?", label: "🇮🇳 Hindi Query" },
+          { text: "Gravity ela panichestundi?", label: "🇮🇳 Telugu Query" },
+          { text: "What is quantum computing?", label: "🇬🇧 English Query" }
+        ]
+      };
+
+      function setLutharMode(mode) {
+        currentLutharMode = mode;
+        document.querySelectorAll(".luthar-mode-pill").forEach(p => p.classList.remove("active"));
+        document.getElementById(`mode_${mode}`)?.classList.add("active");
+
+        const modeLabel = document.getElementById("lutharActiveModeLabel");
+        const modeNames = {
+          tutor: "Universal Tutor",
+          math: "Math & Calculations",
+          code: "Code & Programming",
+          cinema: "Cinema & Stories",
+          polyglot: "51-Lang Matrix"
+        };
+        if (modeLabel) modeLabel.innerHTML = `Mode: <strong>${modeNames[mode] || mode}</strong>`;
+
+        // Update Prompt Chips
+        const chipsContainer = document.getElementById("lutharPromptChipsRow");
+        if (chipsContainer && MODE_PROMPTS[mode]) {
+          chipsContainer.innerHTML = MODE_PROMPTS[mode].map(p => `
+            <button class="prompt-chip" style="font-size: 11px; padding: 4px 10px; background: rgba(99,102,241,0.15); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.3);" onclick="sendLutharQuickChat('${escapeHtml(p.text)}')">
+              ${escapeHtml(p.label)}
+            </button>
+          `).join("");
+        }
+      }
+
+      function clearLutharChat() {
+        const container = document.getElementById("lutharMessagesContainer");
+        if (!container) return;
+        container.innerHTML = `
+          <div class="luthar-bubble assistant">
+            <div class="luthar-bubble-meta">
+              <span style="font-weight: 800; color: #fff;">⚡ LUTHAR AI</span>
+              <span class="luthar-lang-badge">தமிழ் Tamil</span>
+              <span class="luthar-mode-badge">Core Reset</span>
+            </div>
+            வணக்கம்! நான் **Luthar AI (லூதர் AI)**. 
+            கணிதக் கணக்கீடுகள், நிரலாக்க குறியீடுகள் (Coding), அறிவியல் & பாட சந்தேகங்கள், அல்லது சினிமா தாத்பரியங்கள் என எதை வேண்டுமானாலும் எந்த மொழியிலும் என்னிடம் கேளுங்கள்!
+          </div>
+        `;
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      }
+
+      function sendLutharQuickChat(text) {
+        const input = document.getElementById("lutharInput");
+        if (input) input.value = text;
+        sendLutharMessage();
+      }
+
+      function renderLutharMarkdown(text) {
+        if (!text) return "";
+        let safe = escapeHtml(text);
+
+        // Render code blocks: ```lang ... ```
+        safe = safe.replace(/```(\w*)\n([\s\S]*?)```/g, function(match, lang, code) {
+          const codeId = "code_" + Math.random().toString(36).substring(2, 9);
+          return `
+            <div class="luthar-code-block">
+              <div class="luthar-code-header">
+                <span>💻 ${lang ? lang.toUpperCase() : "CODE"}</span>
+                <button class="luthar-copy-btn" onclick="copyCodeSnippet(this, '${encodeURIComponent(code)}')">📋 Copy Code</button>
+              </div>
+              <div class="luthar-code-content" id="${codeId}">${code}</div>
+            </div>
+          `;
+        });
+
+        // Inline code `code`
+        safe = safe.replace(/`([^`]+)`/g, '<code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #38bdf8;">$1</code>');
+
+        // Bold **text**
+        safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong style="color: #fff;">$1</strong>');
+
+        // Bullet points
+        safe = safe.replace(/^• (.*)$/gm, '<div style="margin-left: 10px;">• $1</div>');
+
+        return safe;
+      }
+
+      function copyCodeSnippet(btn, encodedCode) {
+        const code = decodeURIComponent(encodedCode);
+        navigator.clipboard.writeText(code).then(() => {
+          btn.textContent = "✓ Copied!";
+          btn.style.color = "#34d399";
+          setTimeout(() => {
+            btn.textContent = "📋 Copy Code";
+            btn.style.color = "";
+          }, 2000);
+        });
+      }
+
+      async function sendLutharMessage() {
+        const input = document.getElementById("lutharInput");
+        const container = document.getElementById("lutharMessagesContainer");
+        const langSelect = document.getElementById("lutharLangSelect");
+        const chosenLang = langSelect ? langSelect.value : "auto";
         const text = (input ? input.value : "").trim();
         if (!text) return;
 
         // Add user bubble
         const userDiv = document.createElement("div");
-        userDiv.className = "chat-bubble user";
-        userDiv.textContent = text;
-        msgContainer.appendChild(userDiv);
+        userDiv.className = "luthar-bubble user";
+        userDiv.innerHTML = `
+          <div style="font-size: 11px; opacity: 0.8; margin-bottom: 4px;">You • ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+          <div>${escapeHtml(text)}</div>
+        `;
+        container.appendChild(userDiv);
         input.value = "";
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+        container.scrollTop = container.scrollHeight;
 
         // Add loading bubble
         const loadingDiv = document.createElement("div");
-        loadingDiv.className = "chat-bubble assistant";
-        loadingDiv.innerHTML = `<span style="display: inline-flex; align-items: center; gap: 6px;"><span class="spinner"></span> AI பதில் தருகிறது...</span>`;
-        msgContainer.appendChild(loadingDiv);
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+        loadingDiv.className = "luthar-bubble assistant";
+        loadingDiv.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="spinner" style="border-color: rgba(99,102,241,0.2); border-top-color: #38bdf8;"></span>
+            <span>⚡ Luthar AI நரம்பியல் மையம் சிந்திக்கிறது (Neural Core Computing)...</span>
+          </div>
+        `;
+        container.appendChild(loadingDiv);
+        container.scrollTop = container.scrollHeight;
 
         try {
           const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: text, language: lang })
+            body: JSON.stringify({
+              message: text,
+              language: chosenLang === "auto" ? null : chosenLang,
+              mode: currentLutharMode
+            })
           });
           const data = await res.json();
+          const waveId = "wave_" + Math.random().toString(36).substring(2, 9);
+          const langDisplay = data.language || data.detected_language || "Tamil";
+          const modeDisplay = (data.mode || "general").toUpperCase();
+
           loadingDiv.innerHTML = `
-            <div>${escapeHtml(data.reply)}</div>
-            <div style="margin-top: 8px; display: flex; justify-content: flex-end;">
-              <button onclick="speakWidgetReply(decodeURIComponent('${encodeURIComponent(data.reply)}'), '${lang}')" style="background: rgba(99, 102, 241, 0.1); border: 1px solid #c7d2fe; color: #4f46e5; border-radius: 8px; padding: 4px 8px; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 700;">
-                🔊 Listen Audio
+            <div class="luthar-bubble-meta">
+              <span style="font-weight: 800; color: #fff;">⚡ LUTHAR AI</span>
+              <span class="luthar-lang-badge">🌍 ${escapeHtml(langDisplay)}</span>
+              <span class="luthar-mode-badge">${escapeHtml(modeDisplay)}</span>
+            </div>
+            <div>${renderLutharMarkdown(data.reply)}</div>
+            <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
+              <div id="${waveId}" class="luthar-waveform-player" style="display: none;">
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+                <div class="waveform-bar"></div>
+                <span style="font-size: 10px; color: #38bdf8; margin-left: 6px; font-weight: 700;">Speaking...</span>
+              </div>
+              <button onclick="speakLutharReply(decodeURIComponent('${encodeURIComponent(data.reply)}'), '${escapeHtml(langDisplay)}', '${waveId}')" class="luthar-ctrl-btn" style="font-weight: 700;">
+                🔊 Listen
               </button>
             </div>
           `;
+
+          // If auto-TTS is enabled, automatically speak the response!
+          if (isLutharTtsEnabled) {
+            speakLutharReply(data.reply, langDisplay, waveId);
+          }
+
+          // Add suggested followup chips if available
+          if (data.suggestions && data.suggestions.length > 0) {
+            const sugDiv = document.createElement("div");
+            sugDiv.style = "display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 8px 0;";
+            sugDiv.innerHTML = data.suggestions.map(s => `
+              <button class="prompt-chip" style="font-size: 11px; padding: 3px 8px; background: rgba(99,102,241,0.12); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.25);" onclick="sendLutharQuickChat('${escapeHtml(s)}')">
+                ${escapeHtml(s)}
+              </button>
+            `).join("");
+            container.appendChild(sugDiv);
+          }
         } catch (e) {
-          loadingDiv.textContent = "⚠️ பதில் பெறுவதில் தாமதம் ஏற்பட்டது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.";
+          loadingDiv.innerHTML = `⚠️ மன்னிக்கவும், பதில் பெறுவதில் தாமதம் ஏற்பட்டது: ${escapeHtml(e.message)}. Backend சர்வர் இயங்குகிறதா என சரிபார்க்கவும்.`;
         }
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+        container.scrollTop = container.scrollHeight;
       }
 
-      function speakWidgetReply(text, lang) {
+      function speakLutharReply(text, lang, waveId) {
         if (!("speechSynthesis" in window) || !text) return;
         window.speechSynthesis.cancel();
-        const clean = text.replace(/[*#💡🔬📝🎯📖]/g, "").trim();
+
+        // Clean out markdown and code blocks for spoken audio
+        const clean = text
+          .replace(/```[\s\S]*?```/g, "Code block provided.")
+          .replace(/[*#💡🔬📝🎯📖🧮✅📐🔍🚀📌]/g, "")
+          .trim();
+
         const utter = new SpeechSynthesisUtterance(clean);
         const langObj = supportedLanguages.find(l => l.name.toLowerCase() === (lang || "Tamil").toLowerCase());
         utter.lang = langObj ? langObj.speech : "ta-IN";
         utter.rate = 1.0;
+
+        const waveEl = waveId ? document.getElementById(waveId) : null;
+        if (waveEl) waveEl.style.display = "flex";
+
+        utter.onend = () => {
+          if (waveEl) waveEl.style.display = "none";
+        };
+        utter.onerror = () => {
+          if (waveEl) waveEl.style.display = "none";
+        };
+
         window.speechSynthesis.speak(utter);
       }
 
-      function toggleWidgetMic() {
+      function toggleLutharMic() {
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRec) {
-          showToast("Microphone speech recognition not supported in this browser.");
+          showToast("Microphone speech recognition not supported in this browser. Please use Chrome or Edge.");
           return;
         }
 
-        const micBtn = document.getElementById("chatWidgetMicBtn");
-        if (isWidgetListening) {
-          isWidgetListening = false;
+        const micBtn = document.getElementById("lutharMicBtn");
+        if (isLutharMicListening) {
+          isLutharMicListening = false;
           if (micBtn) micBtn.style.color = "";
           return;
         }
 
         const rec = new SpeechRec();
-        rec.lang = "en-US";
+        const langSelect = document.getElementById("lutharLangSelect");
+        const val = langSelect ? langSelect.value : "Tamil";
+        const langObj = supportedLanguages.find(l => l.name.toLowerCase() === val.toLowerCase());
+        rec.lang = langObj ? langObj.speech : "en-US";
         rec.continuous = false;
         rec.interimResults = false;
 
         rec.onstart = () => {
-          isWidgetListening = true;
+          isLutharMicListening = true;
           if (micBtn) micBtn.style.color = "#ef4444";
-          showToast("Listening... Speak your question!");
+          showToast("Listening... Speak your question to Luthar AI!");
         };
         rec.onend = () => {
-          isWidgetListening = false;
+          isLutharMicListening = false;
           if (micBtn) micBtn.style.color = "";
         };
         rec.onerror = () => {
-          isWidgetListening = false;
+          isLutharMicListening = false;
           if (micBtn) micBtn.style.color = "";
         };
         rec.onresult = event => {
           const transcript = event.results[0][0].transcript;
-          const input = document.getElementById("chatWidgetInput");
+          const input = document.getElementById("lutharInput");
           if (input) input.value = transcript;
-          sendWidgetMessage();
+          sendLutharMessage();
         };
         rec.start();
       }
