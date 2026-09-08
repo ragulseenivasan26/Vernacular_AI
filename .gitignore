@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+backend/venv/
+node_modules/
+.env
+models/*.bin
+models/*.pt
+dist/
+*.db
+*.sqlite3
+.vscode/

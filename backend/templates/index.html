@@ -1,0 +1,3692 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vernacular AI - AI-Powered Mother Tongue Pedagogy Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-hover: #4f46e5;
+        --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+        --accent: #10b981;
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --surface-border: #e2e8f0;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --text-sub: #94a3b8;
+        --card-bg: #ffffff;
+        --header-bg: rgba(255, 255, 255, 0.92);
+        --chip-bg: #f1f5f9;
+        --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+        --shadow-md: 0 12px 32px -4px rgba(15, 23, 42, 0.08);
+        --shadow-lg: 0 20px 40px -8px rgba(99, 102, 241, 0.16);
+        --radius-lg: 20px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      [data-theme="dark"] {
+        --bg: #0b0f19;
+        --surface: #131b2e;
+        --surface-border: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --text-sub: #64748b;
+        --card-bg: #111827;
+        --header-bg: rgba(11, 15, 25, 0.94);
+        --chip-bg: #1e293b;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 12px 32px -4px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 20px 40px -8px rgba(99, 102, 241, 0.25);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .bg-glow {
+        position: fixed;
+        top: -160px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1000px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.16) 0%, rgba(139, 92, 246, 0.08) 40%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--header-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--surface-border);
+        height: 74px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(16px, 5vw, 48px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .brand-logo {
+        width: 44px;
+        height: 44px;
+        border-radius: var(--radius-md);
+        background: var(--primary-gradient);
+        display: grid;
+        place-items: center;
+        color: #fff;
+        box-shadow: 0 8px 18px rgba(99, 102, 241, 0.35);
+      }
+
+      .brand-title {
+        font-size: 19px;
+        font-weight: 800;
+        letter-spacing: -0.4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .brand-badge {
+        font-size: 11px;
+        font-weight: 700;
+        background: #e0e7ff;
+        color: #4338ca;
+        padding: 3px 8px;
+        border-radius: 20px;
+      }
+
+      [data-theme="dark"] .brand-badge {
+        background: #312e81;
+        color: #c7d2fe;
+      }
+
+      .brand-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn-nav {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        color: var(--text-main);
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+      }
+
+      .btn-nav:hover {
+        border-color: #cbd5e1;
+        transform: translateY(-1px);
+      }
+
+      .btn-nav.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+
+      .btn-nav.highlight {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(217, 70, 239, 0.15));
+        border-color: #c7d2fe;
+        color: #4f46e5;
+      }
+
+      [data-theme="dark"] .btn-nav.highlight {
+        background: rgba(99, 102, 241, 0.25);
+        border-color: #6366f1;
+        color: #c7d2fe;
+      }
+
+      /* Main container */
+      .main-wrapper {
+        position: relative;
+        z-index: 1;
+        max-width: 1240px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 32px clamp(16px, 4vw, 32px) 60px;
+        flex: 1;
+      }
+
+      /* Mode Switcher Pill */
+      .mode-switcher {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+
+      .mode-pill {
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: 30px;
+        padding: 4px;
+        display: inline-flex;
+        gap: 4px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .mode-pill-btn {
+        background: transparent;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 24px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .mode-pill-btn.active {
+        background: var(--primary);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        max-width: 840px;
+        margin: 0 auto 24px;
+      }
+
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #f5f3ff;
+        border: 1px solid #ddd6fe;
+        color: #7c3aed;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 5px 15px;
+        border-radius: 30px;
+        margin-bottom: 12px;
+      }
+
+      [data-theme="dark"] .hero-tag {
+        background: #2e1065;
+        border-color: #5b21b6;
+        color: #c4b5fd;
+      }
+
+      .hero h1 {
+        font-size: clamp(28px, 4.5vw, 44px);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.8px;
+        margin-bottom: 12px;
+      }
+
+      .hero h1 span {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.65;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Language Control Bar */
+      .lang-bar {
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-lg);
+        padding: 16px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+      }
+
+      .lang-select-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+        min-width: 220px;
+      }
+
+      .lang-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-sub);
+        letter-spacing: 0.6px;
+      }
+
+      .custom-select {
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-sm);
+        padding: 11px 14px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-main);
+        font-family: inherit;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .custom-select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      }
+
+      .btn-swap {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        color: var(--primary);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+        margin-top: 14px;
+      }
+
+      .btn-swap:hover {
+        background: #e0e7ff;
+        color: var(--primary-hover);
+        transform: rotate(180deg) scale(1.05);
+      }
+
+      /* Workspace Grid */
+      .workspace-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+        margin-bottom: 24px;
+      }
+
+      @media (max-width: 880px) {
+        .workspace-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        display: flex;
+        flex-direction: column;
+        min-height: 490px;
+        overflow: hidden;
+      }
+
+      .card-header {
+        height: 60px;
+        padding: 0 18px;
+        border-bottom: 1px solid var(--surface-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--card-bg);
+      }
+
+      .card-title-group {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+
+      .card-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .speed-pill-group {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        border-radius: 16px;
+        padding: 2px 4px;
+        margin-right: 4px;
+      }
+
+      .speed-pill {
+        background: transparent;
+        border: none;
+        padding: 2px 6px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        border-radius: 12px;
+        cursor: pointer;
+      }
+
+      .speed-pill.active {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        border: 1px solid var(--surface-border);
+        background: var(--surface);
+        color: var(--text-muted);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .icon-btn:hover {
+        background: var(--chip-bg);
+        color: var(--primary);
+        border-color: #cbd5e1;
+      }
+
+      .icon-btn.active-mic {
+        background: #fee2e2;
+        border-color: #fca5a5;
+        color: #dc2626;
+        animation: pulseMic 1.2s infinite;
+      }
+
+      @keyframes pulseMic {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+        50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+      }
+
+      .icon-btn.active-fav {
+        color: #f59e0b;
+        border-color: #fcd34d;
+        background: #fffbeb;
+      }
+
+      /* Pedagogy Tabs */
+      .tabs-bar {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--surface-border);
+        background: var(--bg);
+        padding: 0 12px;
+        gap: 4px;
+        overflow-x: auto;
+      }
+
+      .tab-btn {
+        background: transparent;
+        border: none;
+        padding: 11px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        transition: all 0.15s;
+      }
+
+      .tab-btn:hover {
+        color: var(--primary);
+      }
+
+      .tab-btn.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        background: var(--surface);
+      }
+
+      /* Textarea & Output */
+      .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .editor-textarea {
+        width: 100%;
+        flex: 1;
+        min-height: 220px;
+        border: none;
+        outline: none;
+        padding: 20px;
+        font-size: 16px;
+        line-height: 1.75;
+        font-family: inherit;
+        color: var(--text-main);
+        resize: none;
+        background: transparent;
+      }
+
+      .editor-textarea::placeholder {
+        color: var(--text-sub);
+      }
+
+      .output-area {
+        flex: 1;
+        min-height: 220px;
+        padding: 20px;
+        font-size: 18px;
+        line-height: 1.85;
+        color: var(--text-main);
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .output-area.empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-sub);
+        font-size: 15px;
+        text-align: center;
+      }
+
+      /* Tab Content Panels */
+      .tab-panel {
+        display: none;
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
+
+      .tab-panel.active {
+        display: block;
+      }
+
+      .vocab-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+
+      .vocab-card {
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+      }
+
+      .vocab-term {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 4px;
+      }
+
+      .vocab-trans {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-main);
+      }
+
+      .quiz-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .quiz-item {
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-sm);
+        padding: 16px;
+      }
+
+      .quiz-q {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--text-main);
+      }
+
+      .quiz-opts {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .quiz-opt-btn {
+        text-align: left;
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--surface-border);
+        background: var(--surface);
+        color: var(--text-main);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .quiz-opt-btn:hover {
+        border-color: var(--primary);
+        background: var(--chip-bg);
+      }
+
+      .quiz-opt-btn.correct {
+        background: #ecfdf5;
+        border-color: #34d399;
+        color: #065f46;
+        font-weight: 700;
+      }
+
+      .quiz-opt-btn.wrong {
+        background: #fff1f2;
+        border-color: #f87171;
+        color: #991b1b;
+      }
+
+      /* Interactive Doubts Box */
+      .doubt-box {
+        margin-top: 14px;
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-md);
+        padding: 14px;
+      }
+
+      .doubt-input-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .doubt-input {
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-sm);
+        padding: 9px 12px;
+        font-size: 13px;
+        color: var(--text-main);
+        outline: none;
+      }
+
+      .doubt-btn {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 9px 16px;
+        border-radius: var(--radius-sm);
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      /* Multi-Broadcast Grid */
+      .broadcast-container {
+        display: none;
+        margin-bottom: 24px;
+      }
+
+      .broadcast-container.active {
+        display: block;
+      }
+
+      .broadcast-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+
+      .broadcast-card {
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .broadcast-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        border-bottom: 1px solid var(--surface-border);
+        padding-bottom: 8px;
+      }
+
+      .broadcast-text {
+        font-size: 16px;
+        line-height: 1.75;
+        color: var(--text-main);
+        flex: 1;
+        min-height: 90px;
+      }
+
+      /* Sample questions chips */
+      .chips-container {
+        padding: 14px 20px;
+        background: var(--bg);
+        border-top: 1px dashed var(--surface-border);
+      }
+
+      .chips-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-sub);
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+
+      .chips-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .prompt-chip {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-main);
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        padding: 6px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .prompt-chip:hover {
+        background: #eef2ff;
+        border-color: #818cf8;
+        color: #4338ca;
+        transform: translateY(-1px);
+      }
+
+      /* Loading Animation */
+      .loading-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-height: 220px;
+        gap: 14px;
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3.5px solid #e0e7ff;
+        border-top-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* Alert Error */
+      .alert-error {
+        margin-bottom: 20px;
+        background: #fff1f2;
+        border: 1px solid #fecdd3;
+        color: #9f1239;
+        padding: 14px 18px;
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        font-weight: 500;
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Action controls */
+      .action-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 34px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        background: var(--primary-gradient);
+        color: #fff;
+        border: none;
+        padding: 15px 34px;
+        border-radius: var(--radius-md);
+        font-size: 16px;
+        font-weight: 700;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(99, 102, 241, 0.45);
+      }
+
+      .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; }
+
+      .btn-secondary {
+        background: var(--surface);
+        color: var(--text-main);
+        border: 1px solid var(--surface-border);
+        padding: 15px 20px;
+        border-radius: var(--radius-md);
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-secondary:hover { background: var(--chip-bg); }
+
+      .btn-pdf {
+        background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+        color: #fff;
+        border: none;
+        padding: 15px 22px;
+        border-radius: var(--radius-md);
+        font-size: 15px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s;
+      }
+
+      .btn-pdf:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(239, 68, 68, 0.35);
+      }
+
+      /* Audio waveform */
+      .waveform {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        height: 32px;
+      }
+
+      .wave-bar {
+        width: 4px;
+        background: var(--primary);
+        border-radius: 3px;
+        animation: waveAnim 1s ease-in-out infinite;
+      }
+
+      .wave-bar:nth-child(2) { animation-delay: 0.15s; height: 16px; }
+      .wave-bar:nth-child(3) { animation-delay: 0.3s; height: 26px; }
+      .wave-bar:nth-child(4) { animation-delay: 0.45s; height: 18px; }
+      .wave-bar:nth-child(5) { animation-delay: 0.6s; height: 30px; }
+      .wave-bar:nth-child(6) { animation-delay: 0.2s; height: 12px; }
+
+      @keyframes waveAnim {
+        0%, 100% { transform: scaleY(0.4); }
+        50% { transform: scaleY(1); }
+      }
+
+      .waveform.paused .wave-bar {
+        animation-play-state: paused;
+        transform: scaleY(0.3);
+      }
+
+      /* Modals */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(6px);
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-box {
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-lg);
+        width: min(940px, 96vw);
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .modal-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--surface-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--card-bg);
+      }
+
+      .modal-title {
+        font-size: 18px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .modal-body {
+        padding: 22px 24px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .modal-footer {
+        padding: 16px 24px;
+        border-top: 1px solid var(--surface-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--card-bg);
+      }
+
+      /* Video Studio Screen */
+      .video-studio-viewport {
+        position: relative;
+        background: #000;
+        border-radius: var(--radius-md);
+        height: 380px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 2px solid #312e81;
+      }
+
+      .video-studio-viewport video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .video-ar-overlay {
+        position: absolute;
+        bottom: 18px;
+        left: 20px;
+        right: 20px;
+        background: rgba(15, 23, 42, 0.82);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 14px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .video-live-tag {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: #dc2626;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .video-live-dot {
+        width: 6px;
+        height: 6px;
+        background: #fff;
+        border-radius: 50%;
+        animation: pulseDot 1s infinite;
+      }
+
+      @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+      /* Comparison Table */
+      .comp-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        text-align: left;
+      }
+
+      .comp-table th {
+        background: var(--bg);
+        padding: 12px 16px;
+        border-bottom: 2px solid var(--surface-border);
+        font-weight: 700;
+        color: var(--text-main);
+      }
+
+      .comp-table td {
+        padding: 13px 16px;
+        border-bottom: 1px solid var(--surface-border);
+        color: var(--text-main);
+      }
+
+      .comp-table tr:hover td { background: var(--bg); }
+
+      .badge-yes {
+        background: #ecfdf5;
+        color: #065f46;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .badge-no {
+        background: #f1f5f9;
+        color: #64748b;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 12px;
+      }
+
+      /* Slide-out History Drawer */
+      .history-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: 90;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .history-overlay.open { opacity: 1; pointer-events: auto; }
+
+      .history-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: clamp(320px, 90vw, 460px);
+        background: var(--surface);
+        box-shadow: -10px 0 35px rgba(15, 23, 42, 0.15);
+        z-index: 95;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .history-drawer.open { transform: translateX(0); }
+
+      .drawer-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--surface-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .drawer-title {
+        font-size: 18px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .drawer-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .history-item {
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-sm);
+        padding: 14px;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+
+      .history-item:hover {
+        border-color: #a5b4fc;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: #0f172a;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 200;
+      }
+
+      /* Network Status Pill */
+      .net-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        cursor: default;
+      }
+
+      .net-status-pill.online {
+        background: #ecfdf5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+      }
+
+      .net-status-pill.offline {
+        background: #fffbeb;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        animation: pulseOffline 2s infinite;
+      }
+
+      [data-theme="dark"] .net-status-pill.online {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      [data-theme="dark"] .net-status-pill.offline {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .net-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .net-status-pill.online .net-status-dot {
+        background: #10b981;
+        box-shadow: 0 0 6px #10b981;
+      }
+
+      .net-status-pill.offline .net-status-dot {
+        background: #f59e0b;
+        box-shadow: 0 0 6px #f59e0b;
+      }
+
+      @keyframes pulseOffline {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+
+      /* Cinema Studio Styles */
+      .cinema-viewport {
+        position: relative;
+        background: radial-gradient(circle at center, #111827 0%, #030712 100%);
+        border-radius: var(--radius-md);
+        height: 380px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 2px solid #3730a3;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      }
+
+      .cinema-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .cinema-sub-box {
+        position: absolute;
+        bottom: 24px;
+        left: 30px;
+        right: 30px;
+        background: rgba(3, 7, 18, 0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 14px;
+        padding: 14px 22px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        z-index: 10;
+        transition: all 0.25s ease;
+      }
+
+      .cinema-sub-eng {
+        font-size: 14px;
+        color: #94a3b8;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .cinema-sub-vernacular {
+        font-size: 20px;
+        color: #facc15;
+        font-weight: 800;
+        text-shadow: 0 2px 10px rgba(250, 204, 21, 0.4);
+        line-height: 1.4;
+      }
+
+      .cinema-scene-card {
+        background: var(--bg);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-sm);
+        padding: 10px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .cinema-scene-card:hover, .cinema-scene-card.active {
+        border-color: var(--primary);
+        background: var(--surface);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .cinema-scene-card.active {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+      }
+
+      .idiom-card {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(217, 70, 239, 0.08));
+        border: 1px solid #c7d2fe;
+        border-radius: var(--radius-md);
+        padding: 14px 18px;
+      }
+
+      [data-theme="dark"] .idiom-card {
+        background: rgba(99, 102, 241, 0.12);
+        border-color: #4338ca;
+      }
+
+      /* Academic Report Paper */
+      .report-paper {
+        background: #ffffff;
+        color: #1e293b;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 40px 48px;
+        font-family: 'Times New Roman', Georgia, serif;
+        line-height: 1.7;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .report-paper h1 {
+        font-size: 24px;
+        text-align: center;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: #0f172a;
+        margin-bottom: 6px;
+      }
+
+      .report-paper h3 {
+        font-size: 14px;
+        text-align: center;
+        font-style: italic;
+        font-weight: 500;
+        color: #475569;
+        margin-bottom: 20px;
+      }
+
+      .report-author-block {
+        text-align: center;
+        font-size: 13px;
+        color: #334155;
+        margin-bottom: 24px;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 16px;
+      }
+
+      .report-abstract {
+        background: #f8fafc;
+        border-left: 4px solid #6366f1;
+        padding: 14px 18px;
+        font-style: italic;
+        font-size: 14px;
+        margin-bottom: 28px;
+      }
+
+      .report-section {
+        margin-bottom: 24px;
+      }
+
+      .report-section h2 {
+        font-size: 17px;
+        font-weight: 800;
+        color: #0f172a;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      .report-section p {
+        font-size: 14px;
+        text-align: justify;
+        white-space: pre-line;
+      }
+
+      @media print {
+        body * { visibility: hidden !important; }
+        #reportPaper, #reportPaper * { visibility: visible !important; }
+        #reportPaper {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          border: none;
+          box-shadow: none;
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+
+    <!-- Navigation -->
+    <header class="navbar">
+      <a href="/" class="brand">
+        <div class="brand-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            Vernacular AI
+            <span class="brand-badge">50+ Languages</span>
+          </div>
+          <div class="brand-sub">Real-Time Mother Tongue Pedagogy Platform</div>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Live Network Status Pill -->
+        <div id="netStatusPill" class="net-status-pill online" title="Network Connection Status: Auto-detects Online / Offline Mode">
+          <span class="net-status-dot"></span>
+          <span id="netStatusText">Online (AI Cloud)</span>
+        </div>
+
+        <!-- Cinema Studio Button (English Movies to Vernacular Dub) -->
+        <button class="btn-nav highlight" onclick="openCinemaModal()" title="English Movie / Cinema Vernacular Dubbing & Subtitles">
+          <span>🎬 Cinema Studio</span>
+        </button>
+
+        <!-- Academic & Industry Project Report Button -->
+        <button class="btn-nav" onclick="openReportModal()" title="Generate Full Academic & Industry Project Report (PDF/MD)">
+          <span>📑 Project Report</span>
+        </button>
+
+        <!-- Live Video Studio Button -->
+        <button class="btn-nav" onclick="openVideoStudioModal()" title="Live Video/Webcam AI Subtitling Studio">
+          <span>🎥 Video Studio</span>
+        </button>
+
+        <!-- Classroom Simulator Button -->
+        <button class="btn-nav" onclick="openSimModal()" title="Simulate a teacher lecture with live vernacular captions">
+          <span>🎧 Classroom Sim</span>
+        </button>
+
+        <!-- Uniqueness USP Button -->
+        <button class="btn-nav" onclick="openUspModal()" title="What makes Vernacular AI unique?">
+          <span>🌟 Why Unique?</span>
+        </button>
+
+        <!-- Database Explorer Button -->
+        <button class="btn-nav" onclick="openDatabaseModal()" title="View SQLite Database Storage & Tables">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+          <span>SQL DB</span>
+          <span id="navDbCount" style="font-size: 11px; background: var(--bg); padding: 2px 6px; border-radius: 10px;">0</span>
+        </button>
+
+        <!-- History Drawer Button -->
+        <button class="btn-nav" onclick="toggleDrawer(true)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>History</span>
+          <span id="navHistoryCount" style="font-size: 11px; background: var(--bg); padding: 2px 6px; border-radius: 10px;">0</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="btn-nav" onclick="toggleTheme()" title="Toggle Dark / Light Mode">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-wrapper">
+      <!-- Mode Switcher (Standard vs Multi-Broadcast) -->
+      <div class="mode-switcher">
+        <div class="mode-pill">
+          <button id="modeStandardBtn" class="mode-pill-btn active" onclick="switchViewMode('standard')">
+            <span>🖥️ Single Target Mode</span>
+          </button>
+          <button id="modeBroadcastBtn" class="mode-pill-btn" onclick="switchViewMode('broadcast')">
+            <span>📡 4-Language Broadcast Grid</span>
+          </button>
+        </div>
+      </div>
+
+      <section class="hero">
+        <div class="hero-tag">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Mother Tongue Education AI
+        </div>
+        <h1>Learn any concept in your<br/><span>true mother tongue.</span></h1>
+        <p>Ask any educational question or use voice / video input. Real-time translation across 50+ Indian & global languages with speech audio, vocabulary breakdown, and interactive mini-quizzes.</p>
+      </section>
+
+      <!-- Language Selector Bar (Standard View) -->
+      <section id="standardLangBar" class="lang-bar">
+        <div class="lang-select-group">
+          <div class="lang-label">Source Language (From)</div>
+          <select id="sourceLang" class="custom-select"></select>
+        </div>
+
+        <button id="swapLangBtn" class="btn-swap" onclick="swapLanguages()" title="Swap Languages">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+        </button>
+
+        <div class="lang-select-group">
+          <div class="lang-label">Target Language (To)</div>
+          <select id="targetLang" class="custom-select"></select>
+        </div>
+      </section>
+
+      <!-- VIEW 1: Standard Dual Workspace -->
+      <section id="standardWorkspace" class="workspace-grid">
+        <!-- Input Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span id="sourceCardTitle">English Text / Question</span>
+            </div>
+            <div class="card-actions">
+              <span id="charCounter" style="font-size: 12px; color: var(--text-sub); font-weight: 600;">0/2000</span>
+              <button id="micBtn" class="icon-btn" onclick="toggleVoiceInput()" title="Voice Input (Microphone Speech-to-Text)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+              </button>
+              <button class="icon-btn" onclick="speakText('input')" title="Listen to Source Audio">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <textarea
+              id="inputText"
+              class="editor-textarea"
+              maxlength="2000"
+              placeholder="Type, paste, or click the mic to speak an educational question... (Press Ctrl + Enter to translate)"
+            ></textarea>
+          </div>
+
+          <div class="chips-container">
+            <div class="chips-title">Sample Educational Questions:</div>
+            <div class="chips-list">
+              <span class="prompt-chip" onclick="setPrompt('What is photosynthesis and why is it important for plants?')">🌱 Photosynthesis</span>
+              <span class="prompt-chip" onclick="setPrompt('Why do stars twinkle at night?')">✨ Twinkling Stars</span>
+              <span class="prompt-chip" onclick="setPrompt('How does gravity keep the planets in orbit around the Sun?')">🪐 Gravity & Planets</span>
+              <span class="prompt-chip" onclick="setPrompt('What are the three states of matter and their properties?')">💧 States of Matter</span>
+              <span class="prompt-chip" onclick="setPrompt('Why is clean water essential for all living organisms?')">🌊 Clean Water</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Card (With Pedagogy Tabs) -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span id="targetCardTitle">Vernacular Pedagogy</span>
+            </div>
+            <div class="card-actions">
+              <!-- Audio Speed Controls for Kids -->
+              <div class="speed-pill-group" title="Audio Pronunciation Speed">
+                <button class="speed-pill" onclick="setSpeechRate(0.75, this)">🐢 0.75x</button>
+                <button class="speed-pill active" onclick="setSpeechRate(1.0, this)">1x</button>
+                <button class="speed-pill" onclick="setSpeechRate(1.25, this)">1.25x</button>
+              </div>
+
+              <button class="icon-btn" onclick="speakText('output')" title="Listen to Audio Pronunciation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <button id="favBtn" class="icon-btn" onclick="toggleCurrentFavorite()" title="Star / Bookmark Translation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button class="icon-btn" onclick="copyTranslation()" title="Copy Translation">
+                <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+              <button class="icon-btn" onclick="downloadLessonJson()" title="Download Lesson JSON">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tabs Navigation -->
+          <div class="tabs-bar">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-trans')">
+              <span>🌐 Translation</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-vocab')">
+              <span>📖 Key Vocabulary</span>
+              <span id="vocabBadge" style="font-size: 11px; background: var(--bg); padding: 2px 6px; border-radius: 10px;">0</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-expl')">
+              <span>💡 Explanation</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-quiz')">
+              <span>🎯 Mini Quiz</span>
+              <span id="quizBadge" style="font-size: 11px; background: var(--bg); padding: 2px 6px; border-radius: 10px;">2</span>
+            </button>
+          </div>
+
+          <div class="card-body">
+            <!-- Tab 1: Translation -->
+            <div id="tab-trans" class="tab-panel active">
+              <div id="outputArea" class="output-area empty">
+                Your vernacular translation will appear here.
+              </div>
+
+              <!-- Interactive Doubt Clearer -->
+              <div class="doubt-box">
+                <div style="font-size: 12px; font-weight: 700; color: var(--primary);">💬 Ask a doubt about this lesson:</div>
+                <div class="doubt-input-row">
+                  <input id="doubtInput" type="text" class="doubt-input" placeholder="Type your doubt or question..." />
+                  <button class="doubt-btn" onclick="submitDoubt()">Ask AI</button>
+                </div>
+                <div id="doubtAnswerArea" style="margin-top: 8px; font-size: 13px; color: var(--text-main); display: none;"></div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Vocabulary -->
+            <div id="tab-vocab" class="tab-panel">
+              <div id="vocabContainer" class="vocab-grid">
+                <div style="color: var(--text-sub); font-size: 14px; grid-column: 1/-1; text-align: center; padding: 40px 0;">
+                  Translate a sentence to see key vocabulary terms.
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Simple Explanation -->
+            <div id="tab-expl" class="tab-panel">
+              <div id="explArea" style="font-size: 16px; line-height: 1.8; color: var(--text-main);">
+                <div style="color: var(--text-sub); text-align: center; padding: 40px 0;">
+                  Child-friendly concept explanation will appear here.
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 4: Interactive Quiz -->
+            <div id="tab-quiz" class="tab-panel">
+              <div id="quizContainer" class="quiz-container">
+                <div style="color: var(--text-sub); text-align: center; padding: 40px 0;">
+                  Interactive mini quiz will be generated automatically.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chips-container" style="background: var(--surface);">
+            <div style="font-size: 12px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between;">
+              <span>Stored automatically in SQLite `vernacular_ai.db`.</span>
+              <span id="wordCountBadge" style="font-weight: 700; color: var(--primary);">0 words</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: Multi-Language Broadcast Grid (4 Languages Simultaneously) -->
+      <section id="broadcastContainer" class="broadcast-container">
+        <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <h3 style="font-size: 17px; font-weight: 800;">📡 Simultaneous 4-Language Mother-Tongue Broadcast</h3>
+          <span style="font-size: 12px; color: var(--text-sub);">Tamil • Hindi • Telugu • Malayalam</span>
+        </div>
+
+        <div class="broadcast-grid">
+          <!-- 1. Tamil Card -->
+          <div class="broadcast-card">
+            <div class="broadcast-card-header">
+              <strong style="color: #4338ca;">🇮🇳 தமிழ் (Tamil)</strong>
+              <button class="icon-btn" onclick="speakBroadcast('Tamil')" title="Listen Tamil"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>🔊</button>
+            </div>
+            <div id="bc-ta" class="broadcast-text">Tamil translation will stream here...</div>
+          </div>
+
+          <!-- 2. Hindi Card -->
+          <div class="broadcast-card">
+            <div class="broadcast-card-header">
+              <strong style="color: #059669;">🇮🇳 हिन्दी (Hindi)</strong>
+              <button class="icon-btn" onclick="speakBroadcast('Hindi')" title="Listen Hindi">🔊</button>
+            </div>
+            <div id="bc-hi" class="broadcast-text">Hindi translation will stream here...</div>
+          </div>
+
+          <!-- 3. Telugu Card -->
+          <div class="broadcast-card">
+            <div class="broadcast-card-header">
+              <strong style="color: #d97706;">🇮🇳 తెలుగు (Telugu)</strong>
+              <button class="icon-btn" onclick="speakBroadcast('Telugu')" title="Listen Telugu">🔊</button>
+            </div>
+            <div id="bc-te" class="broadcast-text">Telugu translation will stream here...</div>
+          </div>
+
+          <!-- 4. Malayalam Card -->
+          <div class="broadcast-card">
+            <div class="broadcast-card-header">
+              <strong style="color: #7c3aed;">🇮🇳 മലയാളം (Malayalam)</strong>
+              <button class="icon-btn" onclick="speakBroadcast('Malayalam')" title="Listen Malayalam">🔊</button>
+            </div>
+            <div id="bc-ml" class="broadcast-text">Malayalam translation will stream here...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alert Error -->
+      <div id="alertBox" class="alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        <span id="alertMsg">An error occurred.</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-bar">
+        <button id="translateBtn" class="btn-primary" onclick="doTranslate()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          <span id="btnText">Translate with AI</span>
+        </button>
+
+        <button class="btn-pdf" onclick="generatePdfStudySheet()" title="Download Printable Lesson Study Card as PDF">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Download PDF Study Card</span>
+        </button>
+
+        <button class="btn-secondary" onclick="downloadLessonJson()" title="Download as JSON File">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          <span>Export JSON</span>
+        </button>
+
+        <button class="btn-secondary" onclick="clearAll()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+          <span>Clear</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- 1. LIVE VIDEO & WEBCAM AI SUBTITLE STUDIO MODAL -->
+    <div id="videoStudioModal" class="modal-overlay" onclick="closeVideoStudioModal(event)">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span style="font-size: 24px;">🎥</span>
+            <span>Live Video / Webcam AI Subtitle Studio</span>
+          </div>
+          <button class="icon-btn" onclick="closeVideoStudioModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 13px; color: var(--text-muted);">
+              Speak to the camera — <strong>Real-time AR Vernacular Subtitles</strong> float directly on top of the live video!
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button id="webcamToggleBtn" class="btn-nav" onclick="toggleWebcam()">
+                <span>📷 Start Webcam</span>
+              </button>
+              <button id="videoSimDemoBtn" class="btn-nav" onclick="playVideoLectureDemo()">
+                <span>🎬 Video Lecture Demo</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Video Viewport with AR Subtitle Overlay -->
+          <div class="video-studio-viewport">
+            <div class="video-live-tag">
+              <span class="video-live-dot"></span>
+              <span id="videoLiveStatusText">LIVE AI CAM</span>
+            </div>
+
+            <video id="studioVideo" autoplay playsinline muted></video>
+
+            <!-- Floating AR Subtitle Bar -->
+            <div class="video-ar-overlay">
+              <div style="display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 700; color: #a5b4fc; text-transform: uppercase;">
+                <span id="arSpeechLangLabel">Speaker Speech:</span>
+                <span style="color: #34d399;">● Live Vernacular Sync</span>
+              </div>
+              <div id="arSpeechText" style="font-size: 14px; color: #e2e8f0; font-weight: 500;">
+                "Speak clearly into your microphone to generate live video subtitles..."
+              </div>
+              <div id="arVernacularText" style="font-size: 18px; color: #38bdf8; font-weight: 800; text-shadow: 0 2px 10px rgba(56, 189, 248, 0.4); margin-top: 2px;">
+                "உங்கள் தாய்மொழி நேரலை சப்-டைட்டில் இங்கே தோன்றும்..."
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div style="font-size: 12px; color: var(--text-sub);">
+            Powered by Browser MediaStream API + Web Speech Recognition + Multi-Vernacular Engine
+          </div>
+          <button class="btn-primary" style="padding: 10px 20px; font-size: 13px;" onclick="closeVideoStudioModal()">
+            <span>Close Studio</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. LIVE CLASSROOM SIMULATOR MODAL -->
+    <div id="simModal" class="modal-overlay" onclick="closeSimModal(event)">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span style="font-size: 24px;">🎧</span>
+            <span>Classroom Speech Lecture Simulator</span>
+          </div>
+          <button class="icon-btn" onclick="closeSimModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div style="display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; background: var(--bg); border: 1px solid var(--surface-border); padding: 14px 18px; border-radius: var(--radius-md);">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-sub);">Select Lecture Topic:</span>
+              <select id="simScenarioSelect" class="custom-select" style="padding: 8px 12px; min-width: 280px;" onchange="loadSimScenario()">
+                <option value="photosynthesis">🔬 Biology: Photosynthesis & Solar Energy</option>
+                <option value="stars">✨ Astronomy: Why Stars Twinkle in Space</option>
+                <option value="watercycle">🌊 Ecology: The Global Water Cycle</option>
+                <option value="gravity">🪐 Physics: Universal Law of Gravity</option>
+              </select>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div id="simWaveform" class="waveform paused">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+              </div>
+              <span id="simStatusText" style="font-size: 12px; font-weight: 700; color: var(--text-sub);">READY</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 16px;">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px;">
+                <span>👨‍🏫 Teacher Spoken Speech</span>
+                <span id="simSentenceNum" style="color: var(--primary);">Sentence 1 of 4</span>
+              </div>
+              <div id="simSourceStream" style="font-size: 16px; line-height: 1.7; color: var(--text-main); font-weight: 600;"></div>
+            </div>
+
+            <div style="background: var(--surface); border: 1px solid #a5b4fc; border-radius: var(--radius-md); padding: 16px;">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">
+                <span id="simTargetHeader">🇮🇳 Vernacular Live Subtitle</span>
+                <span style="background: #ecfdf5; color: #065f46; padding: 2px 8px; border-radius: 10px;">Synced</span>
+              </div>
+              <div id="simTargetStream" style="font-size: 18px; line-height: 1.7; color: var(--primary); font-weight: 700;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div style="display: flex; gap: 10px;">
+            <button id="simPlayBtn" class="btn-primary" style="padding: 10px 20px; font-size: 13px;" onclick="toggleSimLecture()">
+              <span>▶ Start Simulation</span>
+            </button>
+            <button class="btn-secondary" style="padding: 10px 16px; font-size: 13px;" onclick="nextSimSentence()">
+              <span>Next Sentence ❯</span>
+            </button>
+          </div>
+          <div style="font-size: 12px; color: var(--text-sub); font-weight: 600;">
+            Target: <strong id="simCurrentLangLabel" style="color: var(--text-main);">Tamil</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. WHY UNIQUE? MODAL -->
+    <div id="uspModal" class="modal-overlay" onclick="closeUspModal(event)">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span style="font-size: 24px;">🌟</span>
+            <span>Why is Vernacular AI Unique?</span>
+          </div>
+          <button class="icon-btn" onclick="closeUspModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Feature / Capability</th>
+                <th>Generic Translators</th>
+                <th style="color: var(--primary);">Vernacular AI Platform</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Objective</strong></td>
+                <td><span class="badge-no">General text lookup</span></td>
+                <td><span class="badge-yes">✓ Mother-Tongue Learning & Pedagogy</span></td>
+              </tr>
+              <tr>
+                <td><strong>Scientific Vocabulary Glossary</strong></td>
+                <td><span class="badge-no">❌ None</span></td>
+                <td><span class="badge-yes">✓ Automatic Terminology Breakdown</span></td>
+              </tr>
+              <tr>
+                <td><strong>Child-Friendly Conceptual Explanation</strong></td>
+                <td><span class="badge-no">❌ None</span></td>
+                <td><span class="badge-yes">✓ Explains "Why & How" in Mother Tongue</span></td>
+              </tr>
+              <tr>
+                <td><strong>Knowledge Retention & Assessment</strong></td>
+                <td><span class="badge-no">❌ None</span></td>
+                <td><span class="badge-yes">✓ Auto-Generated Interactive Mini Quizzes</span></td>
+              </tr>
+              <tr>
+                <td><strong>Live Video & Camera AR Subtitling</strong></td>
+                <td><span class="badge-no">❌ None</span></td>
+                <td><span class="badge-yes">✓ Live Webcam & Video AI Studio</span></td>
+              </tr>
+              <tr>
+                <td><strong>Simultaneous 4-Language Broadcast</strong></td>
+                <td><span class="badge-no">❌ 1 language at a time</span></td>
+                <td><span class="badge-yes">✓ 4 Languages Simultaneously in 1 Click</span></td>
+              </tr>
+              <tr>
+                <td><strong>Study Material Export</strong></td>
+                <td><span class="badge-no">❌ Plain text only</span></td>
+                <td><span class="badge-yes">✓ Formatted PDF Study Card & JSON Export</span></td>
+              </tr>
+              <tr>
+                <td><strong>Local SQLite Database</strong></td>
+                <td><span class="badge-no">☁️ Cloud servers only</span></td>
+                <td><span class="badge-yes">✓ Local `vernacular_ai.db` Persistence</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-primary" style="padding: 10px 22px; font-size: 14px;" onclick="closeUspModal()">
+            <span>Got It</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SQL DATABASE EXPLORER MODAL -->
+    <div id="dbModal" class="modal-overlay" onclick="closeDatabaseModal(event)">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+            <span>SQLite Database Explorer</span>
+          </div>
+          <button class="icon-btn" onclick="closeDatabaseModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div style="background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 14px;">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-sub); display: block; margin-bottom: 4px;">Database Storage Location on Disk:</span>
+            <span id="dbStoragePath" style="font-family: monospace; font-size: 13px; color: var(--primary); word-break: break-all; font-weight: 600;">Loading...</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;">
+            <div style="background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+              <div id="dbTotalRecords" style="font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">0</div>
+              <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">Total Records</div>
+            </div>
+            <div style="background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+              <div id="dbFileSize" style="font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">0 KB</div>
+              <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">File Size</div>
+            </div>
+            <div style="background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+              <div id="dbStarredRecords" style="font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">0</div>
+              <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">Starred Items</div>
+            </div>
+            <div style="background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+              <div id="dbDistinctLangs" style="font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">0</div>
+              <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">Languages Used</div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);">
+              Live Records Table (`translations`):
+            </div>
+            <div class="table-wrapper" style="border: 1px solid var(--surface-border); border-radius: 8px; max-height: 240px; overflow-x: auto;">
+              <table class="comp-table" style="font-size: 13px;">
+                <thead>
+                  <tr><th>ID</th><th>Source</th><th>Target</th><th>Input Text</th><th>Translated Output</th><th>Created At</th></tr>
+                </thead>
+                <tbody id="dbTableRows">
+                  <tr><td colspan="6" style="text-align: center;">Loading database records...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div style="display: flex; gap: 8px;">
+            <a href="/api/database/export?format=csv" download class="btn-nav"><span>📥 Export CSV</span></a>
+            <a href="/api/database/export?format=json" download class="btn-nav"><span>📥 Export JSON</span></a>
+          </div>
+          <button class="btn-nav" onclick="refreshDatabaseModal()"><span>🔄 Refresh</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. CINEMA AI DUBBING & SUBTITLE STUDIO MODAL -->
+    <div id="cinemaModal" class="modal-overlay" onclick="closeCinemaModal(event)">
+      <div class="modal-box" style="max-width: 960px;" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span style="font-size: 24px;">🎬</span>
+            <span>Cinema AI Studio — English Film Vernacular Dub & Subtitles</span>
+          </div>
+          <button class="icon-btn" onclick="closeCinemaModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Description & Target Language -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 13px; color: var(--text-muted);">
+              Watch English movie clips with <strong>Bilingual Subtitles, AI Voice Dubbing, & Idiom Decoder</strong> in your mother tongue!
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; font-weight: 700; color: var(--text-sub);">Dubbing Language:</span>
+              <select id="cinemaLangSelect" class="custom-select" style="padding: 6px 12px; font-weight: 700;" onchange="changeCinemaLanguage()">
+                <option value="Tamil" selected>🇮🇳 Tamil (தமிழ்)</option>
+                <option value="Hindi">🇮🇳 Hindi (हिन्दी)</option>
+                <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+                <option value="Malayalam">🇮🇳 Malayalam (മലയാളം)</option>
+                <option value="Kannada">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+                <option value="Bengali">🇮🇳 Bengali (বাংলা)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Scene Selector Pills -->
+          <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px;">
+            <div class="cinema-scene-card active" id="scene_pursuit_of_happyness" onclick="selectCinemaScene('pursuit_of_happyness')">
+              <span style="font-size: 20px;">🏀</span>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">The Pursuit of Happyness</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Protect Your Dream Speech</div>
+              </div>
+            </div>
+
+            <div class="cinema-scene-card" id="scene_interstellar" onclick="selectCinemaScene('interstellar')">
+              <span style="font-size: 20px;">🪐</span>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">Interstellar</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Dimension of Love</div>
+              </div>
+            </div>
+
+            <div class="cinema-scene-card" id="scene_oppenheimer" onclick="selectCinemaScene('oppenheimer')">
+              <span style="font-size: 20px;">⚛️</span>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">Oppenheimer</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Destroyer of Worlds</div>
+              </div>
+            </div>
+
+            <div class="cinema-scene-card" id="scene_planet_earth" onclick="selectCinemaScene('planet_earth')">
+              <span style="font-size: 20px;">🌿</span>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">BBC Planet Earth</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Living Miracle Web</div>
+              </div>
+            </div>
+
+            <label class="cinema-scene-card" style="cursor: pointer;" title="Upload your own English video file">
+              <span style="font-size: 20px;">📁</span>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">Upload My Video</div>
+                <div style="font-size: 11px; color: var(--text-muted);">MP4 / WebM / MKV</div>
+              </div>
+              <input type="file" id="cinemaVideoUpload" accept="video/*" style="display: none;" onchange="handleUserCinemaUpload(event)" />
+            </label>
+          </div>
+
+          <!-- Cinematic Video Viewport with AR Subtitles -->
+          <div class="cinema-viewport">
+            <!-- Animated Dynamic Canvas Scene -->
+            <canvas id="cinemaCanvas" class="cinema-canvas"></canvas>
+
+            <!-- Video player if user uploaded video -->
+            <video id="cinemaUserVideo" playsinline style="display: none; width: 100%; height: 100%; object-fit: cover;"></video>
+
+            <!-- Top Scene Badge -->
+            <div style="position: absolute; top: 16px; left: 18px; display: flex; align-items: center; gap: 10px; z-index: 10;">
+              <span id="cinemaGenreBadge" style="background: rgba(99, 102, 241, 0.85); color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: 0.4px;">DRAMA</span>
+              <span id="cinemaSpeakerName" style="color: #e2e8f0; font-size: 13px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">Chris Gardner (Will Smith)</span>
+            </div>
+
+            <div style="position: absolute; top: 16px; right: 18px; z-index: 10; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
+              <span id="cinemaDubIndicator" style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></span>
+              <span id="cinemaTimecode" style="font-size: 12px; font-family: monospace; color: #fff; font-weight: 700;">00:00 / 00:21</span>
+            </div>
+
+            <!-- Stylized Bilingual Subtitle Box -->
+            <div class="cinema-sub-box">
+              <div id="cinemaSubEng" class="cinema-sub-eng">"Don't ever let somebody tell you you can't do something."</div>
+              <div id="cinemaSubVernacular" class="cinema-sub-vernacular">"நீ எதையும் செய்ய முடியாது என்று யாராவது சொல்வதை ஒருபோதும் அனுமதிக்காதே."</div>
+            </div>
+          </div>
+
+          <!-- Playback Controls Bar -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 12px 18px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <button id="cinemaPlayBtn" class="btn-primary" style="padding: 9px 18px; font-size: 13px;" onclick="toggleCinemaPlay()">
+                <span>▶ Play Scene & Dub</span>
+              </button>
+              <button class="btn-secondary" style="padding: 9px 14px; font-size: 13px;" onclick="restartCinemaScene()">
+                <span>⏮ Replay</span>
+              </button>
+            </div>
+
+            <!-- Dubbing Audio Voice Volume Slider -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 12px; font-weight: 700; color: var(--text-sub);">🔊 Vernacular Dub Voice:</span>
+              <input type="range" id="cinemaDubVolume" min="0" max="1" step="0.1" value="1" style="width: 100px; accent-color: var(--primary);" />
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-nav" onclick="downloadCinemaSrt()" title="Download Translated .SRT Subtitle File">
+                <span>📥 Export .SRT Subtitles</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Cultural & Idiom Decoder Card -->
+          <div class="idiom-card">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <span style="font-size: 18px;">🎭</span>
+              <strong style="font-size: 13px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Cultural & Movie Idiom Decoder (கலாச்சார மொழிபெயர்ப்பு):</strong>
+            </div>
+            <div id="cinemaCulturalNotes" style="font-size: 14px; line-height: 1.6; color: var(--text-main); font-weight: 500;">
+              English cinema uses phrases like 'Period' to mean 'Final Decision / End of discussion'. In Tamil: 'அவ்வளவுதான், இதற்கு மேல் மாற்றுப் பேச்சே இல்லை'.
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div style="font-size: 12px; color: var(--text-sub);">
+            Empowering non-English speakers to watch & understand world cinema in their mother tongue.
+          </div>
+          <button class="btn-primary" style="padding: 10px 20px; font-size: 13px;" onclick="closeCinemaModal()">
+            <span>Close Cinema Studio</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. ACADEMIC & INDUSTRY PROJECT REPORT MODAL -->
+    <div id="reportModal" class="modal-overlay" onclick="closeReportModal(event)">
+      <div class="modal-box" style="max-width: 1000px;" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span style="font-size: 24px;">📑</span>
+            <span>Academic & Technical Project Report</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-primary" style="padding: 8px 16px; font-size: 12px;" onclick="printReportPaper()">
+              <span>🖨️ Print Report (PDF)</span>
+            </button>
+            <a href="/api/project/report/download" download="Vernacular_AI_Project_Report.md" class="btn-nav" style="padding: 8px 14px; font-size: 12px;">
+              <span>📥 Download Markdown (.md)</span>
+            </a>
+            <button class="icon-btn" onclick="closeReportModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-body" style="background: #e2e8f0; padding: 24px;">
+          <div id="reportPaper" class="report-paper">
+            <h1 id="repTitle">VERNACULAR AI: MULTIMODAL VERNACULAR EDUCATION & CINEMA DUBBING PLATFORM</h1>
+            <h3 id="repSubtitle">Bridging Linguistic Divides through Real-Time Pedagogical Deconstruction, Offline Lexicon Resilience, and Multi-Modal Audio Dubbing</h3>
+            
+            <div class="report-author-block">
+              <strong id="repAuthor">Vernacular AI Engineering Research Group</strong><br/>
+              <span id="repInst">Department of Computer Science & Artificial Intelligence</span><br/>
+              <span id="repDate" style="color: #64748b; font-size: 12px;">September 2026</span>
+            </div>
+
+            <div class="report-abstract">
+              <strong>ABSTRACT: </strong><span id="repAbstract">Loading abstract...</span>
+            </div>
+
+            <div id="repSectionsContainer">
+              <!-- Dynamically populated sections -->
+            </div>
+
+            <div style="margin-top: 30px;">
+              <h2 style="font-size: 16px; font-weight: 800; border-bottom: 1px solid #cbd5e1; padding-bottom: 6px; margin-bottom: 12px; font-family: 'Plus Jakarta Sans', sans-serif;">System Metrics & Benchmarks</h2>
+              <table class="comp-table" style="font-size: 13px;">
+                <thead>
+                  <tr><th>Evaluation Metric</th><th>System Specification / Result</th></tr>
+                </thead>
+                <tbody id="repMetricsTbody">
+                  <!-- Metrics populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div style="font-size: 12px; color: var(--text-sub);">
+            Publication-grade technical report ready for IEEE / ACM submission, viva presentation, or project viva.
+          </div>
+          <button class="btn-primary" style="padding: 10px 20px; font-size: 13px;" onclick="closeReportModal()">
+            <span>Close Report</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. SLIDE-OUT HISTORY DRAWER -->
+    <div id="historyOverlay" class="history-overlay" onclick="toggleDrawer(false)"></div>
+    <aside id="historyDrawer" class="history-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Translation History
+        </div>
+        <button class="icon-btn" onclick="toggleDrawer(false)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div id="drawerBody" class="drawer-body"></div>
+
+      <div style="padding: 16px 24px; border-top: 1px solid var(--surface-border); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
+        <button onclick="clearHistory()" style="background: transparent; border: 1px solid #fecdd3; color: #e11d48; font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 8px; cursor: pointer;">
+          Clear All History
+        </button>
+        <div style="font-size: 11px; color: var(--text-sub); font-weight: 600;">Saved in SQLite</div>
+      </div>
+    </aside>
+
+    <!-- Toast message -->
+    <div id="toast" class="toast">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+      <span id="toastMsg">Success</span>
+    </div>
+
+    <script>
+      let languagesList = [];
+      let currentTranslationId = null;
+      let currentIsFavorite = false;
+      let recognition = null;
+      let isRecording = false;
+      let speechRate = 1.0;
+      let currentViewMode = "standard";
+
+      // Video studio state
+      let mediaStream = null;
+      let studioRecognition = null;
+      let isWebcamActive = false;
+
+      // Simulator state
+      let simIndex = 0;
+      let isSimPlaying = false;
+      let simTimer = null;
+
+      let lastResultData = null;
+      let broadcastDataCache = {};
+
+      const SIM_SCENARIOS = {
+        photosynthesis: {
+          title: "Photosynthesis & Solar Energy",
+          sentences: [
+            "Good morning class! Today we are studying photosynthesis in green plants.",
+            "Plants use green chlorophyll in their leaves to trap solar energy from the Sun.",
+            "They absorb carbon dioxide from atmospheric air and water from their roots.",
+            "This chemical process creates glucose for plant growth and releases clean oxygen for humans to breathe."
+          ]
+        },
+        stars: {
+          title: "Why Stars Twinkle in Space",
+          sentences: [
+            "Have you ever wondered why stars appear to twinkle in the night sky?",
+            "Starlight travels peacefully across millions of miles of empty outer space.",
+            "When the beam of starlight enters the Earth's turbulent atmosphere, warm and cold air pockets bend the light rays.",
+            "This rapid, continuous refraction makes the pinpoints of starlight appear to sparkle and twinkle!"
+          ]
+        },
+        watercycle: {
+          title: "The Global Water Cycle",
+          sentences: [
+            "Water on planet Earth is constantly recycled through a magnificent natural cycle.",
+            "Solar heat warms oceans, lakes, and rivers, evaporating liquid water into invisible water vapor.",
+            "As vapor rises into cooler altitudes, it condenses into fluffy clouds.",
+            "When clouds become dense and saturated, the water returns to Earth as nourishing rain."
+          ]
+        },
+        gravity: {
+          title: "Universal Law of Gravity",
+          sentences: [
+            "Why does an apple fall straight down to the ground instead of floating away?",
+            "Sir Isaac Newton observed that every mass exerts an invisible pulling force called gravity.",
+            "Earth's enormous mass creates a gravitational field that anchors everything safely to the ground.",
+            "This same invisible gravitational pull holds the Moon in orbit around the Earth and the Earth around the Sun!"
+          ]
+        }
+      };
+
+      const sourceSelect = document.getElementById("sourceLang");
+      const targetSelect = document.getElementById("targetLang");
+      const inputEl = document.getElementById("inputText");
+      const outputEl = document.getElementById("outputArea");
+      const charCounter = document.getElementById("charCounter");
+      const wordCountBadge = document.getElementById("wordCountBadge");
+      const alertBox = document.getElementById("alertBox");
+      const alertMsg = document.getElementById("alertMsg");
+      const translateBtn = document.getElementById("translateBtn");
+      const btnText = document.getElementById("btnText");
+      const favBtn = document.getElementById("favBtn");
+      const micBtn = document.getElementById("micBtn");
+      const navHistoryCount = document.getElementById("navHistoryCount");
+      const navDbCount = document.getElementById("navDbCount");
+      const drawerBody = document.getElementById("drawerBody");
+
+      function initTheme() {
+        const saved = localStorage.getItem("vernacular_theme") || "light";
+        document.documentElement.setAttribute("data-theme", saved);
+        document.getElementById("themeIcon").textContent = saved === "dark" ? "☀️" : "🌙";
+      }
+
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("vernacular_theme", next);
+        document.getElementById("themeIcon").textContent = next === "dark" ? "☀️" : "🌙";
+      }
+
+      function switchViewMode(mode) {
+        currentViewMode = mode;
+        if (mode === "standard") {
+          document.getElementById("modeStandardBtn").classList.add("active");
+          document.getElementById("modeBroadcastBtn").classList.remove("active");
+          document.getElementById("standardWorkspace").style.display = "grid";
+          document.getElementById("standardLangBar").style.display = "flex";
+          document.getElementById("broadcastContainer").classList.remove("active");
+        } else {
+          document.getElementById("modeBroadcastBtn").classList.add("active");
+          document.getElementById("modeStandardBtn").classList.remove("active");
+          document.getElementById("standardWorkspace").style.display = "none";
+          document.getElementById("standardLangBar").style.display = "none";
+          document.getElementById("broadcastContainer").classList.add("active");
+          if (inputEl.value.trim()) doBroadcastTranslate();
+        }
+      }
+
+      function setSpeechRate(rate, btn) {
+        speechRate = rate;
+        document.querySelectorAll(".speed-pill").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        showToast(`Speech rate: ${rate}x`);
+      }
+
+      function switchTab(e, tabId) {
+        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+        document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+        e.currentTarget.classList.add("active");
+        document.getElementById(tabId).classList.add("active");
+      }
+
+      function initSpeechRecognition() {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRec) return;
+
+        recognition = new SpeechRec();
+        recognition.continuous = false;
+        recognition.interimResults = true;
+
+        recognition.onstart = () => {
+          isRecording = true;
+          micBtn.classList.add("active-mic");
+          showToast("Listening... Speak your question.");
+        };
+
+        recognition.onresult = (event) => {
+          let transcript = "";
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            transcript += event.results[i][0].transcript;
+          }
+          inputEl.value = transcript;
+          charCounter.textContent = `${transcript.length}/2000`;
+        };
+
+        recognition.onerror = () => {
+          isRecording = false;
+          micBtn.classList.remove("active-mic");
+        };
+
+        recognition.onend = () => {
+          isRecording = false;
+          micBtn.classList.remove("active-mic");
+          if (inputEl.value.trim()) {
+            showToast("Speech captured! Translating...");
+            doTranslate();
+          }
+        };
+      }
+
+      function toggleVoiceInput() {
+        if (!recognition) {
+          showToast("Speech Recognition requires Google Chrome / Edge.");
+          return;
+        }
+
+        if (isRecording) {
+          recognition.stop();
+        } else {
+          const langObj = languagesList.find(l => l.name.toLowerCase() === sourceSelect.value.toLowerCase());
+          recognition.lang = langObj && langObj.speech ? langObj.speech : "en-US";
+          recognition.start();
+        }
+      }
+
+      inputEl.addEventListener("input", () => {
+        charCounter.textContent = `${inputEl.value.length}/2000`;
+      });
+
+      inputEl.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+          e.preventDefault();
+          doTranslate();
+        }
+      });
+
+      async function loadLanguages() {
+        try {
+          const res = await fetch("/api/languages");
+          const data = await res.json();
+          languagesList = data.languages || [];
+
+          sourceSelect.innerHTML = "";
+          targetSelect.innerHTML = "";
+
+          const indianGroup1 = document.createElement("optgroup");
+          indianGroup1.label = "🇮🇳 Indian Vernacular Languages (26)";
+          const globalGroup1 = document.createElement("optgroup");
+          globalGroup1.label = "🌐 Global Languages (25)";
+
+          const indianGroup2 = document.createElement("optgroup");
+          indianGroup2.label = "🇮🇳 Indian Vernacular Languages (26)";
+          const globalGroup2 = document.createElement("optgroup");
+          globalGroup2.label = "🌐 Global Languages (25)";
+
+          languagesList.forEach((lang) => {
+            const optText = `${lang.flag} ${lang.name} (${lang.native})`;
+            const g1 = lang.region === "India" ? indianGroup1 : globalGroup1;
+            const g2 = lang.region === "India" ? indianGroup2 : globalGroup2;
+
+            g1.appendChild(new Option(optText, lang.name));
+            g2.appendChild(new Option(optText, lang.name));
+          });
+
+          sourceSelect.appendChild(indianGroup1);
+          sourceSelect.appendChild(globalGroup1);
+          targetSelect.appendChild(indianGroup2);
+          targetSelect.appendChild(globalGroup2);
+
+          sourceSelect.value = "English";
+          targetSelect.value = "Tamil";
+          updateCardTitles();
+        } catch (err) {
+          console.error("Failed to load languages:", err);
+        }
+      }
+
+      sourceSelect.addEventListener("change", updateCardTitles);
+      targetSelect.addEventListener("change", () => {
+        updateCardTitles();
+        document.getElementById("simCurrentLangLabel").textContent = targetSelect.value;
+      });
+
+      function updateCardTitles() {
+        document.getElementById("sourceCardTitle").textContent = `${sourceSelect.value} Text / Question`;
+        document.getElementById("targetCardTitle").textContent = `${targetSelect.value} Pedagogy`;
+      }
+
+      function swapLanguages() {
+        const temp = sourceSelect.value;
+        sourceSelect.value = targetSelect.value;
+        targetSelect.value = temp;
+
+        const currentOutput = outputEl.textContent.trim();
+        if (currentOutput && !outputEl.classList.contains("empty")) {
+          inputEl.value = currentOutput;
+          charCounter.textContent = `${inputEl.value.length}/2000`;
+          outputEl.textContent = "Click 'Translate with AI' to re-translate.";
+          outputEl.classList.add("empty");
+        }
+
+        updateCardTitles();
+        showToast("Languages swapped!");
+      }
+
+      function setPrompt(text) {
+        inputEl.value = text;
+        charCounter.textContent = `${text.length}/2000`;
+        sourceSelect.value = "English";
+        updateCardTitles();
+        doTranslate();
+      }
+
+      function showAlert(msg) {
+        alertMsg.textContent = msg;
+        alertBox.style.display = "flex";
+      }
+
+      function hideAlert() { alertBox.style.display = "none"; }
+
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2400);
+      }
+
+      async function doTranslate() {
+        if (currentViewMode === "broadcast") {
+          doBroadcastTranslate();
+          return;
+        }
+
+        hideAlert();
+        const text = inputEl.value.trim();
+        if (!text) {
+          showAlert("Please enter, paste, or speak an educational sentence or question first.");
+          return;
+        }
+
+        const source = sourceSelect.value;
+        const target = targetSelect.value;
+
+        translateBtn.disabled = true;
+        btnText.textContent = "Translating with AI...";
+        outputEl.className = "output-area";
+        outputEl.innerHTML = `
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <span>Translating & generating concept pack into ${target}...</span>
+          </div>
+        `;
+
+        try {
+          const res = await fetch("/api/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text, source, target })
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Translation request failed.");
+
+          lastResultData = {
+            ...data,
+            input_text: text,
+            timestamp: new Date().toLocaleString()
+          };
+
+          outputEl.className = "output-area";
+          outputEl.textContent = data.translation;
+          currentTranslationId = data.id;
+          currentIsFavorite = false;
+          favBtn.classList.remove("active-fav");
+
+          const words = data.translation.trim().split(/\s+/).filter(Boolean).length;
+          wordCountBadge.textContent = `${words} words`;
+
+          renderVocabulary(data.vocabulary || []);
+          renderExplanation(data.explanation || data.translation);
+          renderQuiz(data.quiz || []);
+
+          loadHistory();
+          updateDbBadge();
+        } catch (e) {
+          outputEl.className = "output-area empty";
+          outputEl.textContent = "Your vernacular translation will appear here.";
+          showAlert(e.message);
+        } finally {
+          translateBtn.disabled = false;
+          btnText.textContent = "Translate with AI";
+        }
+      }
+
+      // Simultaneous Multi-Language Broadcast
+      async function doBroadcastTranslate() {
+        const text = inputEl.value.trim();
+        if (!text) {
+          showAlert("Please enter an educational sentence to broadcast.");
+          return;
+        }
+
+        document.getElementById("bc-ta").innerHTML = '<div class="spinner" style="width:20px;height:20px;"></div>';
+        document.getElementById("bc-hi").innerHTML = '<div class="spinner" style="width:20px;height:20px;"></div>';
+        document.getElementById("bc-te").innerHTML = '<div class="spinner" style="width:20px;height:20px;"></div>';
+        document.getElementById("bc-ml").innerHTML = '<div class="spinner" style="width:20px;height:20px;"></div>';
+
+        try {
+          const res = await fetch("/api/translate/broadcast", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              text,
+              source: sourceSelect.value,
+              targets: ["Tamil", "Hindi", "Telugu", "Malayalam"]
+            })
+          });
+          const data = await res.json();
+          broadcastDataCache = data.broadcast || {};
+
+          document.getElementById("bc-ta").textContent = broadcastDataCache["Tamil"] || "";
+          document.getElementById("bc-hi").textContent = broadcastDataCache["Hindi"] || "";
+          document.getElementById("bc-te").textContent = broadcastDataCache["Telugu"] || "";
+          document.getElementById("bc-ml").textContent = broadcastDataCache["Malayalam"] || "";
+          showToast("Broadcasted into 4 languages simultaneously!");
+        } catch (e) {
+          showToast("Broadcast failed");
+        }
+      }
+
+      function speakBroadcast(langName) {
+        const text = broadcastDataCache[langName];
+        if (!text) return;
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(text);
+        const langObj = languagesList.find(l => l.name === langName);
+        if (langObj && langObj.speech) utt.lang = langObj.speech;
+        utt.rate = speechRate;
+        window.speechSynthesis.speak(utt);
+      }
+
+      async function submitDoubt() {
+        const doubt = document.getElementById("doubtInput").value.trim();
+        if (!doubt) return;
+        const ansArea = document.getElementById("doubtAnswerArea");
+        ansArea.style.display = "block";
+        ansArea.innerHTML = "Thinking in " + targetSelect.value + "...";
+
+        try {
+          const res = await fetch("/api/ask_doubt", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              lesson: inputEl.value.trim(),
+              question: doubt,
+              target: targetSelect.value
+            })
+          });
+          const data = await res.json();
+          ansArea.innerHTML = `<strong>Answer (${targetSelect.value}):</strong> ${escapeHtml(data.answer)}`;
+        } catch (e) {
+          ansArea.textContent = "Could not fetch answer.";
+        }
+      }
+
+      function renderVocabulary(vocab) {
+        const container = document.getElementById("vocabContainer");
+        document.getElementById("vocabBadge").textContent = vocab.length;
+        if (!vocab || vocab.length === 0) {
+          container.innerHTML = `<div style="color: var(--text-sub); text-align: center; grid-column: 1/-1; padding: 30px;">No specific terminology extracted.</div>`;
+          return;
+        }
+
+        container.innerHTML = vocab.map(v => `
+          <div class="vocab-card">
+            <div class="vocab-term">${escapeHtml(v.term)}</div>
+            <div class="vocab-trans">${escapeHtml(v.translation)}</div>
+          </div>
+        `).join("");
+      }
+
+      function renderExplanation(expl) {
+        const explArea = document.getElementById("explArea");
+        explArea.innerHTML = `
+          <div style="background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 18px;">
+            <div style="font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">
+              💡 Concept Breakdown:
+            </div>
+            <div>${escapeHtml(expl)}</div>
+          </div>
+        `;
+      }
+
+      function renderQuiz(quiz) {
+        const container = document.getElementById("quizContainer");
+        document.getElementById("quizBadge").textContent = quiz.length;
+        if (!quiz || quiz.length === 0) {
+          container.innerHTML = `<div style="color: var(--text-sub); text-align: center; padding: 30px;">Quiz will be generated after translation.</div>`;
+          return;
+        }
+
+        container.innerHTML = quiz.map((q, qIndex) => `
+          <div class="quiz-item">
+            <div class="quiz-q">${qIndex + 1}. ${escapeHtml(q.question)}</div>
+            <div class="quiz-opts">
+              ${q.options.map((opt, optIndex) => `
+                <button class="quiz-opt-btn" onclick="checkQuizAnswer(this, ${optIndex}, ${q.correct})">
+                  ${escapeHtml(opt)}
+                </button>
+              `).join("")}
+            </div>
+          </div>
+        `).join("");
+      }
+
+      function checkQuizAnswer(btn, chosen, correct) {
+        const parent = btn.closest(".quiz-opts");
+        parent.querySelectorAll(".quiz-opt-btn").forEach(b => {
+          b.disabled = true;
+          b.classList.remove("correct", "wrong");
+        });
+
+        if (chosen === correct) {
+          btn.classList.add("correct");
+          showToast("Correct Answer! 🎉 Great job!");
+        } else {
+          btn.classList.add("wrong");
+          parent.children[correct].classList.add("correct");
+          showToast("Incorrect, but good try!");
+        }
+      }
+
+      function speakText(targetArea) {
+        const text = targetArea === "input" ? inputEl.value.trim() : outputEl.textContent.trim();
+        if (!text || (targetArea === "output" && outputEl.classList.contains("empty"))) {
+          showToast("No text to speak!");
+          return;
+        }
+
+        if (!("speechSynthesis" in window)) {
+          showToast("Speech synthesis not supported in this browser.");
+          return;
+        }
+
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        const langName = targetArea === "input" ? sourceSelect.value : targetSelect.value;
+        const langObj = languagesList.find(l => l.name.toLowerCase() === langName.toLowerCase());
+        if (langObj && langObj.speech) {
+          utterance.lang = langObj.speech;
+        }
+        utterance.rate = speechRate;
+
+        window.speechSynthesis.speak(utterance);
+        showToast(`Playing audio (${langName} at ${speechRate}x)...`);
+      }
+
+      async function copyTranslation() {
+        const text = outputEl.textContent.trim();
+        if (!text || outputEl.classList.contains("empty")) {
+          showToast("Nothing to copy!");
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Translation copied to clipboard!");
+        } catch (e) {
+          showToast("Failed to copy.");
+        }
+      }
+
+      // 📄 PDF STUDY SHEET GENERATOR
+      function generatePdfStudySheet() {
+        const transText = outputEl.textContent.trim();
+        const inputText = inputEl.value.trim();
+
+        if (!transText || outputEl.classList.contains("empty")) {
+          showToast("Please translate an educational lesson first!");
+          return;
+        }
+
+        const source = sourceSelect.value;
+        const target = targetSelect.value;
+        const vocab = (lastResultData && lastResultData.vocabulary) || [];
+        const expl = (lastResultData && lastResultData.explanation) || transText;
+        const quiz = (lastResultData && lastResultData.quiz) || [];
+
+        const printWindow = window.open("", "_blank");
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Vernacular AI - Study Sheet (${target})</title>
+              <style>
+                @page { size: A4; margin: 18mm; }
+                body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; line-height: 1.6; margin: 0; padding: 20px; }
+                .header { border-bottom: 2px solid #6366f1; padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+                .brand { font-size: 24px; font-weight: 800; color: #4338ca; }
+                .meta { font-size: 12px; color: #64748b; }
+                .section { margin-bottom: 22px; }
+                .section-title { font-size: 14px; font-weight: 800; text-transform: uppercase; color: #6366f1; letter-spacing: 0.5px; border-left: 4px solid #6366f1; padding-left: 8px; margin-bottom: 8px; }
+                .box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; }
+                .trans-box { font-size: 18px; font-weight: 700; color: #0f172a; line-height: 1.8; }
+                .table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+                .table th { background: #eef2ff; color: #3730a3; padding: 8px 12px; text-align: left; border: 1px solid #cbd5e1; }
+                .table td { padding: 8px 12px; border: 1px solid #cbd5e1; }
+                .quiz-box { margin-top: 8px; font-size: 13px; }
+                .quiz-q { font-weight: 700; margin-top: 8px; }
+                .quiz-opts { padding-left: 18px; margin: 4px 0; }
+                .footer { margin-top: 30px; font-size: 11px; text-align: center; color: #94a3b8; border-top: 1px dashed #cbd5e1; padding-top: 10px; }
+              </style>
+            </head>
+            <body>
+              <div class="header">
+                <div>
+                  <div class="brand">Vernacular AI Study Sheet</div>
+                  <div class="meta">Mother-Tongue Vernacular Learning Module</div>
+                </div>
+                <div class="meta" style="text-align: right;">
+                  <div><strong>Language:</strong> ${source} → ${target}</div>
+                  <div><strong>Generated:</strong> ${new Date().toLocaleDateString()}</div>
+                </div>
+              </div>
+
+              <div class="section">
+                <div class="section-title">1. Original Lesson / Question (${source})</div>
+                <div class="box">${escapeHtml(inputText)}</div>
+              </div>
+
+              <div class="section">
+                <div class="section-title">2. Mother-Tongue Translation (${target})</div>
+                <div class="box trans-box">${escapeHtml(transText)}</div>
+              </div>
+
+              ${vocab.length > 0 ? `
+              <div class="section">
+                <div class="section-title">3. Scientific & Key Concept Vocabulary</div>
+                <table class="table">
+                  <thead><tr><th>Original Term (${source})</th><th>Vernacular Meaning (${target})</th></tr></thead>
+                  <tbody>
+                    ${vocab.map(v => `<tr><td><strong>${escapeHtml(v.term)}</strong></td><td>${escapeHtml(v.translation)}</td></tr>`).join("")}
+                  </tbody>
+                </table>
+              </div>
+              ` : ""}
+
+              <div class="section">
+                <div class="section-title">4. Child-Friendly Conceptual Explanation</div>
+                <div class="box">${escapeHtml(expl)}</div>
+              </div>
+
+              ${quiz.length > 0 ? `
+              <div class="section">
+                <div class="section-title">5. Comprehension Check (Mini-Quiz)</div>
+                <div class="box quiz-box">
+                  ${quiz.map((q, idx) => `
+                    <div class="quiz-q">Q${idx + 1}. ${escapeHtml(q.question)}</div>
+                    <ul class="quiz-opts">
+                      ${q.options.map((opt, oIdx) => `<li>(${String.fromCharCode(65 + oIdx)}) ${escapeHtml(opt)}</li>`).join("")}
+                    </ul>
+                  `).join("")}
+                </div>
+              </div>
+              ` : ""}
+
+              <div class="footer">
+                Vernacular AI - AI-Based Real-Time Vernacular Translation Module | SQLite-ready architecture
+              </div>
+
+              <script>
+                window.onload = function() {
+                  window.print();
+                };
+              <\/script>
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+        showToast("Opening Print / Save as PDF dialog...");
+      }
+
+      function downloadLessonJson() {
+        const transText = outputEl.textContent.trim();
+        const inputText = inputEl.value.trim();
+
+        if (!transText || outputEl.classList.contains("empty")) {
+          showToast("Nothing to export! Translate a lesson first.");
+          return;
+        }
+
+        const payload = lastResultData || {
+          source: sourceSelect.value,
+          target: targetSelect.value,
+          input_text: inputText,
+          translation: transText,
+          timestamp: new Date().toISOString()
+        };
+
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `vernacular_lesson_${payload.target.toLowerCase()}_${Date.now()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast("Downloaded structured lesson JSON!");
+      }
+
+      async function toggleCurrentFavorite() {
+        if (!currentTranslationId) {
+          showToast("Translate something first to bookmark!");
+          return;
+        }
+
+        try {
+          const res = await fetch(`/api/favorite/${currentTranslationId}`, { method: "POST" });
+          const data = await res.json();
+          currentIsFavorite = data.is_favorite === 1;
+          if (currentIsFavorite) {
+            favBtn.classList.add("active-fav");
+            showToast("Added to Starred Translations! ⭐");
+          } else {
+            favBtn.classList.remove("active-fav");
+            showToast("Removed from Starred Translations.");
+          }
+          loadHistory();
+        } catch (e) {}
+      }
+
+      function clearAll() {
+        inputEl.value = "";
+        charCounter.textContent = "0/2000";
+        outputEl.className = "output-area empty";
+        outputEl.textContent = "Your vernacular translation will appear here.";
+        wordCountBadge.textContent = "0 words";
+        currentTranslationId = null;
+        favBtn.classList.remove("active-fav");
+        document.getElementById("vocabContainer").innerHTML = `<div style="color: var(--text-sub); text-align: center; grid-column: 1/-1; padding: 40px 0;">Translate a sentence to see key vocabulary terms.</div>`;
+        document.getElementById("vocabBadge").textContent = "0";
+        document.getElementById("explArea").innerHTML = `<div style="color: var(--text-sub); text-align: center; padding: 40px 0;">Child-friendly concept explanation will appear here.</div>`;
+        document.getElementById("quizContainer").innerHTML = `<div style="color: var(--text-sub); text-align: center; padding: 40px 0;">Interactive mini quiz will be generated automatically.</div>`;
+        document.getElementById("doubtAnswerArea").style.display = "none";
+        hideAlert();
+        showToast("Workspace cleared.");
+      }
+
+      // 🎥 LIVE VIDEO / WEBCAM STUDIO
+      function openVideoStudioModal() {
+        document.getElementById("videoStudioModal").classList.add("open");
+        initStudioSpeech();
+      }
+
+      function closeVideoStudioModal(e) {
+        if (e && e.target !== document.getElementById("videoStudioModal")) return;
+        document.getElementById("videoStudioModal").classList.remove("open");
+        stopWebcam();
+        if (studioRecognition) studioRecognition.stop();
+      }
+
+      async function toggleWebcam() {
+        const video = document.getElementById("studioVideo");
+        const btn = document.getElementById("webcamToggleBtn");
+
+        if (isWebcamActive) {
+          stopWebcam();
+          btn.innerHTML = "<span>📷 Start Webcam</span>";
+          isWebcamActive = false;
+        } else {
+          try {
+            mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            video.srcObject = mediaStream;
+            btn.innerHTML = "<span>⏹ Stop Webcam</span>";
+            isWebcamActive = true;
+            document.getElementById("videoLiveStatusText").textContent = "WEBCAM STREAM ACTIVE";
+            if (studioRecognition) studioRecognition.start();
+            showToast("Webcam started! Speak to generate subtitles.");
+          } catch (err) {
+            showToast("Webcam access denied or unavailable.");
+          }
+        }
+      }
+
+      function stopWebcam() {
+        if (mediaStream) {
+          mediaStream.getTracks().forEach(track => track.stop());
+          mediaStream = null;
+        }
+        const video = document.getElementById("studioVideo");
+        video.srcObject = null;
+        isWebcamActive = false;
+        document.getElementById("videoLiveStatusText").textContent = "STUDIO STANDBY";
+      }
+
+      function playVideoLectureDemo() {
+        const sampleLines = [
+          { en: "In biology, green plants convert sunlight into chemical energy.", ta: "உயிரியலில், பச்சை தாவரங்கள் சூரிய ஒளியை வேதியியல் ஆற்றலாக மாற்றுகின்றன." },
+          { en: "The chlorophyll inside plant cells absorbs blue and red wavelengths.", ta: "தாவர உயிரணுக்களுக்குள் இருக்கும் குளோரோபில் நீலம் மற்றும் சிவப்பு அலைநீளங்களை உறிஞ்சுகிறது." },
+          { en: "This process releases oxygen essential for all animal respiration.", ta: "இந்த செயல்முறை அனைத்து விலங்குகளின் சுவாசத்திற்கும் தேவையான ஆக்ஸிஜனை வெளியிடுகிறது." }
+        ];
+
+        let idx = 0;
+        document.getElementById("videoLiveStatusText").textContent = "LECTURE VIDEO DEMO";
+        showToast("Playing Educational Lecture Video Simulation...");
+
+        function step() {
+          if (idx >= sampleLines.length) idx = 0;
+          document.getElementById("arSpeechText").textContent = `"${sampleLines[idx].en}"`;
+          document.getElementById("arVernacularText").textContent = `"${sampleLines[idx].ta}"`;
+
+          window.speechSynthesis.cancel();
+          const utt = new SpeechSynthesisUtterance(sampleLines[idx].en);
+          utt.lang = "en-US";
+          utt.onend = () => {
+            setTimeout(() => {
+              idx++;
+              if (document.getElementById("videoStudioModal").classList.contains("open")) step();
+            }, 2000);
+          };
+          window.speechSynthesis.speak(utt);
+        }
+        step();
+      }
+
+      function initStudioSpeech() {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRec) return;
+
+        studioRecognition = new SpeechRec();
+        studioRecognition.continuous = true;
+        studioRecognition.interimResults = true;
+
+        studioRecognition.onresult = async (event) => {
+          let transcript = "";
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            transcript += event.results[i][0].transcript;
+          }
+
+          document.getElementById("arSpeechText").textContent = `"${transcript}"`;
+
+          // Translate live for AR subtitle
+          if (transcript.length > 5) {
+            try {
+              const res = await fetch("/api/translate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  text: transcript,
+                  source: "English",
+                  target: targetSelect.value
+                })
+              });
+              const data = await res.json();
+              document.getElementById("arVernacularText").textContent = `"${data.translation}"`;
+            } catch (e) {}
+          }
+        };
+      }
+
+      // CLASSROOM SIMULATOR FUNCTIONS
+      function openSimModal() {
+        document.getElementById("simModal").classList.add("open");
+        document.getElementById("simCurrentLangLabel").textContent = targetSelect.value;
+        loadSimScenario();
+      }
+
+      function closeSimModal(e) {
+        if (e && e.target !== document.getElementById("simModal")) return;
+        document.getElementById("simModal").classList.remove("open");
+        stopSimLecture();
+      }
+
+      function loadSimScenario() {
+        stopSimLecture();
+        simIndex = 0;
+        const key = document.getElementById("simScenarioSelect").value;
+        const scenario = SIM_SCENARIOS[key];
+        document.getElementById("simSentenceNum").textContent = `Sentence 1 of ${scenario.sentences.length}`;
+        document.getElementById("simSourceStream").textContent = `"${scenario.sentences[0]}"`;
+        translateSimSentence(scenario.sentences[0]);
+      }
+
+      async function translateSimSentence(text) {
+        const target = targetSelect.value;
+        document.getElementById("simTargetHeader").textContent = `🇮🇳 Vernacular Live Subtitle (${target})`;
+        document.getElementById("simTargetStream").innerHTML = `<span style="opacity: 0.6;">Generating simultaneous ${target} subtitle...</span>`;
+
+        try {
+          const res = await fetch("/api/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text, source: "English", target })
+          });
+          const data = await res.json();
+          document.getElementById("simTargetStream").textContent = data.translation;
+        } catch (err) {
+          document.getElementById("simTargetStream").textContent = "Translation stream buffering...";
+        }
+      }
+
+      function toggleSimLecture() {
+        if (isSimPlaying) stopSimLecture();
+        else startSimLecture();
+      }
+
+      function startSimLecture() {
+        isSimPlaying = true;
+        document.getElementById("simPlayBtn").innerHTML = `<span>⏸ Pause</span>`;
+        document.getElementById("simWaveform").classList.remove("paused");
+        document.getElementById("simStatusText").textContent = "AUDIO STREAMING";
+        document.getElementById("simStatusText").style.color = "#10b981";
+        playCurrentSimStep();
+      }
+
+      function stopSimLecture() {
+        isSimPlaying = false;
+        if (simTimer) clearTimeout(simTimer);
+        window.speechSynthesis.cancel();
+        document.getElementById("simPlayBtn").innerHTML = `<span>▶ Start Simulation</span>`;
+        document.getElementById("simWaveform").classList.add("paused");
+        document.getElementById("simStatusText").textContent = "PAUSED";
+        document.getElementById("simStatusText").style.color = "var(--text-sub)";
+      }
+
+      function playCurrentSimStep() {
+        const key = document.getElementById("simScenarioSelect").value;
+        const scenario = SIM_SCENARIOS[key];
+        if (simIndex >= scenario.sentences.length) simIndex = 0;
+
+        const sentence = scenario.sentences[simIndex];
+        document.getElementById("simSentenceNum").textContent = `Sentence ${simIndex + 1} of ${scenario.sentences.length}`;
+        document.getElementById("simSourceStream").textContent = `"${sentence}"`;
+
+        translateSimSentence(sentence);
+
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(sentence);
+        utt.lang = "en-US";
+        utt.rate = 0.95;
+
+        utt.onend = () => {
+          if (!isSimPlaying) return;
+          simTimer = setTimeout(() => {
+            simIndex++;
+            if (isSimPlaying) playCurrentSimStep();
+          }, 2200);
+        };
+
+        window.speechSynthesis.speak(utt);
+      }
+
+      function nextSimSentence() {
+        const key = document.getElementById("simScenarioSelect").value;
+        const scenario = SIM_SCENARIOS[key];
+        simIndex = (simIndex + 1) % scenario.sentences.length;
+
+        const sentence = scenario.sentences[simIndex];
+        document.getElementById("simSentenceNum").textContent = `Sentence ${simIndex + 1} of ${scenario.sentences.length}`;
+        document.getElementById("simSourceStream").textContent = `"${sentence}"`;
+        translateSimSentence(sentence);
+
+        if (isSimPlaying) playCurrentSimStep();
+      }
+
+      function openUspModal() { document.getElementById("uspModal").classList.add("open"); }
+      function closeUspModal(e) {
+        if (e && e.target !== document.getElementById("uspModal")) return;
+        document.getElementById("uspModal").classList.remove("open");
+      }
+
+      async function openDatabaseModal() {
+        document.getElementById("dbModal").classList.add("open");
+        refreshDatabaseModal();
+      }
+
+      function closeDatabaseModal(e) {
+        if (e && e.target !== document.getElementById("dbModal")) return;
+        document.getElementById("dbModal").classList.remove("open");
+      }
+
+      async function refreshDatabaseModal() {
+        try {
+          const res = await fetch("/api/database/info");
+          const info = await res.json();
+
+          document.getElementById("dbStoragePath").textContent = info.database_file;
+          document.getElementById("dbTotalRecords").textContent = info.total_records;
+          document.getElementById("dbFileSize").textContent = `${info.file_size_kb} KB`;
+          document.getElementById("dbStarredRecords").textContent = info.starred_records;
+          document.getElementById("dbDistinctLangs").textContent = info.distinct_target_languages;
+
+          const histRes = await fetch("/api/history?limit=25");
+          const histData = await histRes.json();
+          const rows = histData.history || [];
+
+          const tbody = document.getElementById("dbTableRows");
+          if (rows.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-sub);">No records in database.</td></tr>`;
+          } else {
+            tbody.innerHTML = rows.map(r => `
+              <tr>
+                <td><strong>#${r.id}</strong></td>
+                <td>${escapeHtml(r.source_lang)}</td>
+                <td><span style="color: var(--primary); font-weight: 600;">${escapeHtml(r.target_lang)}</span></td>
+                <td title="${escapeHtml(r.source_text)}">${escapeHtml(r.source_text)}</td>
+                <td title="${escapeHtml(r.translated_text)}">${escapeHtml(r.translated_text)}</td>
+                <td>${r.created_at}</td>
+              </tr>
+            `).join("");
+          }
+        } catch (err) {}
+      }
+
+      async function updateDbBadge() {
+        try {
+          const res = await fetch("/api/database/info");
+          const info = await res.json();
+          navDbCount.textContent = info.total_records;
+        } catch (e) {}
+      }
+
+      function toggleDrawer(open) {
+        const drawer = document.getElementById("historyDrawer");
+        const overlay = document.getElementById("historyOverlay");
+        if (open) {
+          drawer.classList.add("open");
+          overlay.classList.add("open");
+          loadHistory();
+        } else {
+          drawer.classList.remove("open");
+          overlay.classList.remove("open");
+        }
+      }
+
+      async function loadHistory() {
+        try {
+          const res = await fetch("/api/history?limit=40");
+          const data = await res.json();
+          const items = data.history || [];
+
+          navHistoryCount.textContent = items.length;
+          navDbCount.textContent = items.length;
+
+          if (items.length === 0) {
+            drawerBody.innerHTML = `
+              <div style="text-align: center; color: var(--text-sub); padding: 40px 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div style="font-weight: 600; margin-top: 10px; font-size: 14px;">No translations recorded yet</div>
+                <div style="font-size: 12px; margin-top: 4px;">Translations will automatically be stored in your SQLite database.</div>
+              </div>
+            `;
+            return;
+          }
+
+          drawerBody.innerHTML = items.map((item) => `
+            <div class="history-item" onclick="loadHistoryIntoWorkspace(${item.id})">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">
+                <span style="color: #4338ca; background: #eef2ff; padding: 3px 8px; border-radius: 6px;">
+                  ${item.source_lang} → ${item.target_lang}
+                </span>
+                <span>${item.is_favorite ? "⭐ Starred" : ""}</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${escapeHtml(item.source_text)}</div>
+              <div style="font-size: 14px; color: var(--text-main); font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${escapeHtml(item.translated_text)}</div>
+              <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--surface-border);" onclick="event.stopPropagation();">
+                <button class="history-btn" onclick="toggleItemFavorite(${item.id})" title="Toggle Star" style="background: transparent; border: none; cursor: pointer;">
+                  ${item.is_favorite ? "⭐" : "☆"}
+                </button>
+                <button class="history-btn delete" onclick="deleteHistoryItem(${item.id})" title="Delete entry" style="background: transparent; border: none; cursor: pointer;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/></svg>
+                </button>
+              </div>
+            </div>
+          `).join("");
+        } catch (e) {}
+      }
+
+      async function loadHistoryIntoWorkspace(id) {
+        try {
+          const res = await fetch("/api/history?limit=100");
+          const data = await res.json();
+          const found = (data.history || []).find(h => h.id === id);
+          if (found) {
+            sourceSelect.value = found.source_lang;
+            targetSelect.value = found.target_lang;
+            updateCardTitles();
+
+            inputEl.value = found.source_text;
+            charCounter.textContent = `${found.source_text.length}/2000`;
+
+            outputEl.className = "output-area";
+            outputEl.textContent = found.translated_text;
+
+            const words = found.translated_text.trim().split(/\s+/).filter(Boolean).length;
+            wordCountBadge.textContent = `${words} words`;
+
+            currentTranslationId = found.id;
+            currentIsFavorite = found.is_favorite === 1;
+            if (currentIsFavorite) favBtn.classList.add("active-fav");
+            else favBtn.classList.remove("active-fav");
+
+            lastResultData = {
+              source: found.source_lang,
+              target: found.target_lang,
+              input_text: found.source_text,
+              translation: found.translated_text,
+              id: found.id
+            };
+
+            toggleDrawer(false);
+            showToast("Loaded saved translation!");
+          }
+        } catch (e) {}
+      }
+
+      async function toggleItemFavorite(id) {
+        try {
+          await fetch(`/api/favorite/${id}`, { method: "POST" });
+          loadHistory();
+        } catch (e) {}
+      }
+
+      async function deleteHistoryItem(id) {
+        try {
+          await fetch(`/api/history/${id}`, { method: "DELETE" });
+          showToast("Record deleted from SQLite.");
+          loadHistory();
+          updateDbBadge();
+        } catch (e) {}
+      }
+
+      async function clearHistory() {
+        if (!confirm("Are you sure you want to clear all translation history?")) return;
+        try {
+          await fetch("/api/history", { method: "DELETE" });
+          showToast("All history cleared from SQLite.");
+          loadHistory();
+          updateDbBadge();
+        } catch (e) {}
+      }
+
+      // ==========================================
+      // NETWORK STATUS (ONLINE / OFFLINE LISTENER)
+      // ==========================================
+      function updateNetworkStatus() {
+        const pill = document.getElementById("netStatusPill");
+        const text = document.getElementById("netStatusText");
+        if (!pill || !text) return;
+        if (navigator.onLine) {
+          pill.className = "net-status-pill online";
+          text.textContent = "Online (AI Cloud)";
+        } else {
+          pill.className = "net-status-pill offline";
+          text.textContent = "Offline (Local Engine Active)";
+          showToast("Switched to Offline Vernacular Engine (Local Cache & Lexicon)");
+        }
+      }
+      window.addEventListener("online", updateNetworkStatus);
+      window.addEventListener("offline", updateNetworkStatus);
+
+      // ==========================================
+      // CINEMA AI DUBBING & SUBTITLE STUDIO
+      // ==========================================
+      let currentCinemaSceneId = "pursuit_of_happyness";
+      let cinemaData = null;
+      let cinemaIsPlaying = false;
+      let cinemaTimer = null;
+      let cinemaCurrentDialogueIdx = 0;
+      let cinemaCanvasAnimId = null;
+
+      async function openCinemaModal() {
+        const modal = document.getElementById("cinemaModal");
+        if (modal) modal.classList.add("open");
+        await loadCinemaScene(currentCinemaSceneId);
+        startCinemaCanvasAnimation();
+      }
+
+      function closeCinemaModal(event) {
+        if (event && event.target !== document.getElementById("cinemaModal")) return;
+        const modal = document.getElementById("cinemaModal");
+        if (modal) modal.classList.remove("open");
+        stopCinemaPlayback();
+        if (cinemaCanvasAnimId) cancelAnimationFrame(cinemaCanvasAnimId);
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      }
+
+      async function selectCinemaScene(sceneId) {
+        currentCinemaSceneId = sceneId;
+        document.querySelectorAll(".cinema-scene-card").forEach(el => el.classList.remove("active"));
+        const card = document.getElementById(`scene_${sceneId}`);
+        if (card) card.classList.add("active");
+        
+        // Hide user video if showing canvas
+        const userVid = document.getElementById("cinemaUserVideo");
+        const canvas = document.getElementById("cinemaCanvas");
+        if (userVid) userVid.style.display = "none";
+        if (canvas) canvas.style.display = "block";
+        
+        await loadCinemaScene(sceneId);
+      }
+
+      async function changeCinemaLanguage() {
+        await loadCinemaScene(currentCinemaSceneId);
+      }
+
+      async function loadCinemaScene(sceneId) {
+        stopCinemaPlayback();
+        const langSelect = document.getElementById("cinemaLangSelect");
+        const lang = langSelect ? langSelect.value : "Tamil";
+        try {
+          const res = await fetch("/api/cinema/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ scene_id: sceneId, target: lang })
+          });
+          cinemaData = await res.json();
+          renderCinemaSceneData();
+        } catch (e) {
+          console.error("Failed to load cinema scene:", e);
+        }
+      }
+
+      function renderCinemaSceneData() {
+        if (!cinemaData) return;
+        const genreBadge = document.getElementById("cinemaGenreBadge");
+        const speakerName = document.getElementById("cinemaSpeakerName");
+        const culturalNotes = document.getElementById("cinemaCulturalNotes");
+        const subEng = document.getElementById("cinemaSubEng");
+        const subVernacular = document.getElementById("cinemaSubVernacular");
+        const timecode = document.getElementById("cinemaTimecode");
+
+        if (genreBadge) genreBadge.textContent = (cinemaData.title || "CINEMA").toUpperCase();
+        if (speakerName) speakerName.textContent = cinemaData.speaker || "";
+        if (culturalNotes) culturalNotes.textContent = cinemaData.cultural_notes || "";
+        
+        const dialogues = cinemaData.dialogues || [];
+        if (dialogues.length > 0) {
+          if (subEng) subEng.textContent = `"${dialogues[0].english}"`;
+          if (subVernacular) subVernacular.textContent = `"${dialogues[0].vernacular}"`;
+        }
+        if (timecode) {
+          const totalEnd = dialogues.length > 0 ? Math.round(dialogues[dialogues.length-1].end) : 20;
+          timecode.textContent = `00:00 / 00:${totalEnd.toString().padStart(2, "0")}`;
+        }
+      }
+
+      function toggleCinemaPlay() {
+        if (cinemaIsPlaying) {
+          stopCinemaPlayback();
+        } else {
+          startCinemaPlayback();
+        }
+      }
+
+      function restartCinemaScene() {
+        stopCinemaPlayback();
+        cinemaCurrentDialogueIdx = 0;
+        startCinemaPlayback();
+      }
+
+      function startCinemaPlayback() {
+        if (!cinemaData || !cinemaData.dialogues || cinemaData.dialogues.length === 0) return;
+        cinemaIsPlaying = true;
+        const btn = document.getElementById("cinemaPlayBtn");
+        if (btn) {
+          btn.innerHTML = `<span>⏸ Pause Scene</span>`;
+          btn.classList.replace("btn-primary", "btn-secondary");
+        }
+        playNextCinemaDialogue();
+      }
+
+      function stopCinemaPlayback() {
+        cinemaIsPlaying = false;
+        if (cinemaTimer) clearTimeout(cinemaTimer);
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+        const btn = document.getElementById("cinemaPlayBtn");
+        if (btn) {
+          btn.innerHTML = `<span>▶ Play Scene & Dub</span>`;
+          btn.classList.replace("btn-secondary", "btn-primary");
+        }
+      }
+
+      function playNextCinemaDialogue() {
+        if (!cinemaIsPlaying || !cinemaData) return;
+        const dialogues = cinemaData.dialogues || [];
+        if (cinemaCurrentDialogueIdx >= dialogues.length) {
+          cinemaCurrentDialogueIdx = 0;
+          stopCinemaPlayback();
+          showToast("Cinema Scene Finished!");
+          return;
+        }
+
+        const d = dialogues[cinemaCurrentDialogueIdx];
+        const subEng = document.getElementById("cinemaSubEng");
+        const subVernacular = document.getElementById("cinemaSubVernacular");
+        const timecode = document.getElementById("cinemaTimecode");
+
+        if (subEng) subEng.textContent = `"${d.english}"`;
+        if (subVernacular) subVernacular.textContent = `"${d.vernacular}"`;
+        if (timecode) {
+          const totalEnd = Math.round(dialogues[dialogues.length-1].end);
+          timecode.textContent = `00:${Math.round(d.start).toString().padStart(2, "0")} / 00:${totalEnd.toString().padStart(2, "0")}`;
+        }
+
+        // Synthesize Vernacular Dub Voice
+        const volumeInput = document.getElementById("cinemaDubVolume");
+        const volume = volumeInput ? parseFloat(volumeInput.value) : 1;
+        if (volume > 0 && "speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(d.vernacular);
+          utter.rate = 1.0;
+          utter.volume = volume;
+          const langObj = supportedLanguages.find(l => l.name.toLowerCase() === (cinemaData.target_language||"Tamil").toLowerCase());
+          utter.lang = langObj ? langObj.speech : "ta-IN";
+          window.speechSynthesis.speak(utter);
+        }
+
+        const duration = Math.max(2500, (d.end - d.start) * 1000);
+        cinemaTimer = setTimeout(() => {
+          cinemaCurrentDialogueIdx++;
+          playNextCinemaDialogue();
+        }, duration);
+      }
+
+      async function downloadCinemaSrt() {
+        if (!cinemaData) return;
+        try {
+          const res = await fetch("/api/cinema/export_srt", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cinemaData)
+          });
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${cinemaData.scene_id}_${cinemaData.target_language}.srt`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast("Downloaded .SRT Subtitles!");
+        } catch (e) {
+          showToast("Error downloading .SRT");
+        }
+      }
+
+      function handleUserCinemaUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const video = document.getElementById("cinemaUserVideo");
+        const canvas = document.getElementById("cinemaCanvas");
+        if (video && canvas) {
+          video.src = URL.createObjectURL(file);
+          video.style.display = "block";
+          canvas.style.display = "none";
+          document.getElementById("cinemaGenreBadge").textContent = "CUSTOM USER FILM";
+          document.getElementById("cinemaSpeakerName").textContent = file.name;
+          video.play();
+          showToast(`Loaded user video: ${file.name}`);
+        }
+      }
+
+      function startCinemaCanvasAnimation() {
+        const canvas = document.getElementById("cinemaCanvas");
+        if (!canvas || !canvas.parentElement) return;
+        const ctx = canvas.getContext("2d");
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+
+        let t = 0;
+        function render() {
+          t += 0.02;
+          ctx.fillStyle = "#030712";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Animated cinematic starfield & atmospheric dust
+          const cx = canvas.width / 2;
+          const cy = canvas.height / 2;
+          const grad = ctx.createRadialGradient(cx, cy, 10, cx, cy, canvas.width * 0.7);
+          grad.addColorStop(0, "rgba(99, 102, 241, 0.25)");
+          grad.addColorStop(0.5, "rgba(139, 92, 246, 0.08)");
+          grad.addColorStop(1, "transparent");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Film projector light beam
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(cx - 80, 0);
+          ctx.lineTo(cx + 80, 0);
+          ctx.lineTo(canvas.width, canvas.height);
+          ctx.lineTo(0, canvas.height);
+          ctx.closePath();
+          ctx.fillStyle = "rgba(255, 255, 255, 0.025)";
+          ctx.fill();
+          ctx.restore();
+
+          // Camera focal rings
+          ctx.strokeStyle = "rgba(99, 102, 241, 0.2)";
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 70 + Math.sin(t) * 10, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // Cine-reel markers
+          ctx.fillStyle = "#6366f1";
+          ctx.font = "bold 11px Inter, sans-serif";
+          ctx.fillText("● 24 FPS CINEMA PROJECTION", 24, canvas.height - 110);
+
+          cinemaCanvasAnimId = requestAnimationFrame(render);
+        }
+        render();
+      }
+
+      // ==========================================
+      // ACADEMIC PROJECT REPORT GENERATOR
+      // ==========================================
+      async function openReportModal() {
+        const modal = document.getElementById("reportModal");
+        if (modal) modal.classList.add("open");
+        try {
+          const res = await fetch("/api/project/report");
+          const data = await res.json();
+          document.getElementById("repTitle").textContent = data.title;
+          document.getElementById("repSubtitle").textContent = data.subtitle;
+          document.getElementById("repAuthor").textContent = data.author;
+          document.getElementById("repInst").textContent = data.institution;
+          document.getElementById("repDate").textContent = data.date;
+          document.getElementById("repAbstract").textContent = data.abstract;
+
+          // Render Sections
+          const container = document.getElementById("repSectionsContainer");
+          container.innerHTML = "";
+          (data.sections || []).forEach(sec => {
+            const div = document.createElement("div");
+            div.className = "report-section";
+            div.innerHTML = `
+              <h2>${escapeHtml(sec.title)}</h2>
+              <p>${escapeHtml(sec.content)}</p>
+            `;
+            container.appendChild(div);
+          });
+
+          // Render Metrics Table
+          const tbody = document.getElementById("repMetricsTbody");
+          tbody.innerHTML = "";
+          (data.metrics_table || []).forEach(m => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td><strong>${escapeHtml(m.metric)}</strong></td>
+              <td>${escapeHtml(m.value)}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        } catch (e) {
+          console.error("Failed to load report:", e);
+        }
+      }
+
+      function closeReportModal(event) {
+        if (event && event.target !== document.getElementById("reportModal")) return;
+        const modal = document.getElementById("reportModal");
+        if (modal) modal.classList.remove("open");
+      }
+
+      function printReportPaper() {
+        window.print();
+      }
+
+      function escapeHtml(str) {
+        return (str || "").replace(/[&<>"']/g, function(m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+      }
+
+      initTheme();
+      initSpeechRecognition();
+      loadLanguages();
+      loadHistory();
+      updateDbBadge();
+      updateNetworkStatus();
+    </script>
+  </body>
+</html>
