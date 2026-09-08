@@ -1402,6 +1402,111 @@
           padding: 0;
         }
       }
+
+      /* Floating AI Tutor Chatbot Widget */
+      .chat-float-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: var(--primary-gradient);
+        color: #ffffff;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        z-index: 120;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .chat-float-btn:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 14px 30px rgba(99, 102, 241, 0.5);
+      }
+
+      .chat-widget-box {
+        position: fixed;
+        bottom: 82px;
+        right: 24px;
+        width: clamp(320px, 90vw, 410px);
+        height: 560px;
+        background: var(--card-bg);
+        border: 1px solid var(--surface-border);
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        z-index: 130;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        animation: chatSlideUp 0.25s ease-out forwards;
+      }
+
+      .chat-widget-box.open {
+        display: flex;
+      }
+
+      @keyframes chatSlideUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .chat-widget-header {
+        background: var(--primary-gradient);
+        color: #fff;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .chat-widget-messages {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background: var(--bg);
+      }
+
+      .chat-bubble {
+        max-width: 85%;
+        padding: 10px 14px;
+        border-radius: 14px;
+        font-size: 14px;
+        line-height: 1.6;
+        white-space: pre-line;
+      }
+
+      .chat-bubble.user {
+        align-self: flex-end;
+        background: var(--primary);
+        color: #fff;
+        border-bottom-right-radius: 4px;
+      }
+
+      .chat-bubble.assistant {
+        align-self: flex-start;
+        background: var(--surface);
+        color: var(--text-main);
+        border: 1px solid var(--surface-border);
+        border-bottom-left-radius: 4px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .chat-widget-footer {
+        padding: 12px 14px;
+        border-top: 1px solid var(--surface-border);
+        background: var(--card-bg);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
     </style>
   </head>
   <body>
@@ -2247,10 +2352,64 @@
       </div>
     </aside>
 
-    <!-- Toast message -->
-    <div id="toast" class="toast">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-      <span id="toastMsg">Success</span>
+    <!-- Floating AI Tutor Chatbot Trigger Button -->
+    <button id="chatFloatBtn" class="chat-float-btn" onclick="toggleChatWidget()" title="Chat with Vernacular AI Tutor">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+      <span>💬 AI Tutor</span>
+    </button>
+
+    <!-- Floating Chatbot Widget Box -->
+    <div id="chatWidgetBox" class="chat-widget-box">
+      <!-- Widget Header -->
+      <div class="chat-widget-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; font-size: 18px;">
+            🤖
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 14px;">Vernacular AI Tutor</div>
+            <div style="font-size: 11px; opacity: 0.85;">Mother-Tongue Doubt Assistant</div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <select id="chatWidgetLang" class="custom-select" style="padding: 4px 8px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.18); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;">
+            <option value="Tamil" selected>Tamil (தமிழ்)</option>
+            <option value="Hindi">Hindi (हिन्दी)</option>
+            <option value="Telugu">Telugu (తెలుగు)</option>
+            <option value="Malayalam">Malayalam (മലയാളം)</option>
+            <option value="Kannada">Kannada (ಕನ್ನಡ)</option>
+          </select>
+          <button class="icon-btn" style="background: transparent; color: #fff; border: none; padding: 4px;" onclick="toggleChatWidget()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Suggestion chips row -->
+      <div style="padding: 8px 12px; background: var(--surface); border-bottom: 1px solid var(--surface-border); display: flex; gap: 6px; overflow-x: auto;">
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 8px;" onclick="sendWidgetQuickChat('What is photosynthesis?')">🌱 Photosynthesis</button>
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 8px;" onclick="sendWidgetQuickChat('How does gravity work?')">🪐 Gravity</button>
+        <button class="prompt-chip" style="font-size: 11px; padding: 4px 8px;" onclick="sendWidgetQuickChat('Why do stars twinkle?')">✨ Stars</button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="chatWidgetMessages" class="chat-widget-messages">
+        <div class="chat-bubble assistant">
+          வணக்கம்! நான் உங்கள் AI ஆசிரியர். உங்களுக்கு இருக்கும் சந்தேகங்களை என்னிடம் கேளுங்கள் — உங்கள் தாய்மொழியில் எளிய உதாரணங்களுடன் விளக்குகிறேன்!
+        </div>
+      </div>
+
+      <!-- Widget Input Footer -->
+      <div class="chat-widget-footer">
+        <button id="chatWidgetMicBtn" class="icon-btn" onclick="toggleWidgetMic()" title="Voice Microphone Input">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+        </button>
+        <input type="text" id="chatWidgetInput" placeholder="Ask doubt in English, Tamil or Tanglish..." onkeydown="if(event.key==='Enter') sendWidgetMessage()" style="flex: 1; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--surface-border); background: var(--bg); color: var(--text-main); font-size: 13px; outline: none;" />
+        <button class="btn-primary" style="padding: 8px 14px; font-size: 13px; border-radius: 10px;" onclick="sendWidgetMessage()">
+          <span>Send</span>
+        </button>
+      </div>
     </div>
 
     <script>
@@ -3673,6 +3832,126 @@
 
       function printReportPaper() {
         window.print();
+      }
+
+      // ==========================================
+      // FLOATING AI TUTOR CHATBOT WIDGET
+      // ==========================================
+      let isChatWidgetOpen = false;
+      let isWidgetListening = false;
+
+      function toggleChatWidget() {
+        const box = document.getElementById("chatWidgetBox");
+        if (!box) return;
+        isChatWidgetOpen = !isChatWidgetOpen;
+        if (isChatWidgetOpen) {
+          box.classList.add("open");
+          document.getElementById("chatWidgetInput")?.focus();
+        } else {
+          box.classList.remove("open");
+        }
+      }
+
+      function sendWidgetQuickChat(text) {
+        const input = document.getElementById("chatWidgetInput");
+        if (input) input.value = text;
+        sendWidgetMessage();
+      }
+
+      async function sendWidgetMessage() {
+        const input = document.getElementById("chatWidgetInput");
+        const msgContainer = document.getElementById("chatWidgetMessages");
+        const langSelect = document.getElementById("chatWidgetLang");
+        const lang = langSelect ? langSelect.value : "Tamil";
+        const text = (input ? input.value : "").trim();
+        if (!text) return;
+
+        // Add user bubble
+        const userDiv = document.createElement("div");
+        userDiv.className = "chat-bubble user";
+        userDiv.textContent = text;
+        msgContainer.appendChild(userDiv);
+        input.value = "";
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+
+        // Add loading bubble
+        const loadingDiv = document.createElement("div");
+        loadingDiv.className = "chat-bubble assistant";
+        loadingDiv.innerHTML = `<span style="display: inline-flex; align-items: center; gap: 6px;"><span class="spinner"></span> AI பதில் தருகிறது...</span>`;
+        msgContainer.appendChild(loadingDiv);
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+
+        try {
+          const res = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text, language: lang })
+          });
+          const data = await res.json();
+          loadingDiv.innerHTML = `
+            <div>${escapeHtml(data.reply)}</div>
+            <div style="margin-top: 8px; display: flex; justify-content: flex-end;">
+              <button onclick="speakWidgetReply(decodeURIComponent('${encodeURIComponent(data.reply)}'), '${lang}')" style="background: rgba(99, 102, 241, 0.1); border: 1px solid #c7d2fe; color: #4f46e5; border-radius: 8px; padding: 4px 8px; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 700;">
+                🔊 Listen Audio
+              </button>
+            </div>
+          `;
+        } catch (e) {
+          loadingDiv.textContent = "⚠️ பதில் பெறுவதில் தாமதம் ஏற்பட்டது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.";
+        }
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+      }
+
+      function speakWidgetReply(text, lang) {
+        if (!("speechSynthesis" in window) || !text) return;
+        window.speechSynthesis.cancel();
+        const clean = text.replace(/[*#💡🔬📝🎯📖]/g, "").trim();
+        const utter = new SpeechSynthesisUtterance(clean);
+        const langObj = supportedLanguages.find(l => l.name.toLowerCase() === (lang || "Tamil").toLowerCase());
+        utter.lang = langObj ? langObj.speech : "ta-IN";
+        utter.rate = 1.0;
+        window.speechSynthesis.speak(utter);
+      }
+
+      function toggleWidgetMic() {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRec) {
+          showToast("Microphone speech recognition not supported in this browser.");
+          return;
+        }
+
+        const micBtn = document.getElementById("chatWidgetMicBtn");
+        if (isWidgetListening) {
+          isWidgetListening = false;
+          if (micBtn) micBtn.style.color = "";
+          return;
+        }
+
+        const rec = new SpeechRec();
+        rec.lang = "en-US";
+        rec.continuous = false;
+        rec.interimResults = false;
+
+        rec.onstart = () => {
+          isWidgetListening = true;
+          if (micBtn) micBtn.style.color = "#ef4444";
+          showToast("Listening... Speak your question!");
+        };
+        rec.onend = () => {
+          isWidgetListening = false;
+          if (micBtn) micBtn.style.color = "";
+        };
+        rec.onerror = () => {
+          isWidgetListening = false;
+          if (micBtn) micBtn.style.color = "";
+        };
+        rec.onresult = event => {
+          const transcript = event.results[0][0].transcript;
+          const input = document.getElementById("chatWidgetInput");
+          if (input) input.value = transcript;
+          sendWidgetMessage();
+        };
+        rec.start();
       }
 
       function escapeHtml(str) {

@@ -12,6 +12,7 @@ from models.translator import (
 )
 from models.cinema_studio import get_cinema_scenes, translate_scene, generate_srt_file
 from models.report_generator import generate_report_data, generate_markdown_report
+from models.chatbot import generate_chat_response
 import database
 
 app = Flask(__name__)
@@ -228,6 +229,18 @@ def project_report_download():
             mimetype="text/markdown; charset=utf-8",
             headers={"Content-Disposition": "attachment; filename=Vernacular_AI_Project_Report.md"}
         )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.post("/api/chat")
+def chat():
+    try:
+        data = request.get_json(silent=True) or {}
+        message = str(data.get("message", "")).strip()
+        history = data.get("history", [])
+        language = data.get("language") or data.get("target") or "Tamil"
+        result = generate_chat_response(message, history=history, target_language=language)
+        return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
